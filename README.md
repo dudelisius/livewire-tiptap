@@ -11,6 +11,14 @@ This package is a result of my own tiptap integration.
 
 I do want to shout out the awesome [Fluxui editor](https://fluxui.dev/components/editor) because the way they integrated the editor and provided options for usage has been of inspiration.
 
+## Requirements
+
+- PHP: 8.3 or higher
+- Laravel: 11.x or higher
+- Livewire: 3.6 or higher
+- Spatie Laravel Package Tools: 1.16 or higher
+
+
 ## Installation
 
 Install via Composer:
