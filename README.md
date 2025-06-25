@@ -1,15 +1,15 @@
 # Livewire Tiptap Editor
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/dudelisius/livewire-tiptap.svg?style=flat-square&include_prereleases)](https://packagist.org/packages/dudelisius/livewire-tiptap)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/dudelisius/livewire-tiptap/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/dudelisius/livewire-tiptap/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/dudelisius/livewire-tiptap/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/dudelisius/livewire-tiptap/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/dudelisius/livewire-tiptap.svg?style=flat-square)](https://packagist.org/packages/dudelisius/livewire-tiptap)
+
 Easily integrate the Tiptap rich-text editor into your Laravel Livewire projects with full customization options.
 
 This package is a result of my own tiptap integration.
 
 I do want to shout out the awesome [Fluxui editor](https://fluxui.dev/components/editor) because the way they integrated the editor and provided options for usage has been of inspiration.
-
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/dudelisius/livewire-tiptap.svg?style=flat-square&include_prereleases)](https://packagist.org/packages/dudelisius/livewire-tiptap)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/dudelisius/livewire-tiptap/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/dudelisius/livewire-tiptap/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/dudelisius/livewire-tiptap/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/dudelisius/livewire-tiptap/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/dudelisius/livewire-tiptap.svg?style=flat-square)](https://packagist.org/packages/dudelisius/livewire-tiptap)
 
 ## Installation
 
