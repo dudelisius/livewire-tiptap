@@ -31,19 +31,17 @@ return [
      * are still applied so you can target elements in your own CSS.
      */
     'classes' => [
-        'livewire-tiptap-wrapper' => 'w-full relative border border-zinc-300 rounded-md outline-none bg-transparent disabled:cursor-not-allowed focus-within:outline-none overflow-hidden focus-within:border-blue-400 transition',
+        'livewire-tiptap-wrapper' => 'w-full border border-zinc-300 rounded-md outline-none bg-transparent disabled:cursor-not-allowed focus-within:outline-none overflow-hidden focus-within:border-blue-400 transition',
         'livewire-tiptap-editor' => 'text-zinc-500 p-3 focus:!outline-none',
         'livewire-tiptap-toolbar-parent' => 'border-b border-zinc-300',
-        'livewire-tiptap-toolbar' => 'flex gap-1 p-1 items-center overflow-x-scroll',
+        'livewire-tiptap-toolbar' => 'flex gap-1 p-1 items-center',
         'livewire-tiptap-toolbar-border' => 'h-4 border-0 bg-zinc-300 w-px mx-1',
         'livewire-tiptap-toolbar-spacer' => 'flex-1',
         'livewire-tiptap-toolbar-button' => 'flex items-center p-1.5 font-medium text-center transition rounded outline-none cursor-pointer bg-justify-center text-zinc-400 focus:outline-none hover:text-blue-500 hover:bg-blue-100',
         'livewire-tiptap-toolbar-button-active' => 'bg-blue-100 !text-blue-500',
-        'livewire-tiptap-dropdown' => 'relative',
-        'livewire-tiptap-dropdown-button' => 'flex items-center',
-        'livewire-tiptap-dropdown-menu' => 'absolute mt-1 bg-white shadow-lg',
-        'livewire-tiptap-dropdown-option' => 'flex items-center p-1 hover:bg-gray-100',
-        'livewire-tiptap-dropdown-option-active' => 'bg-blue-100 text-blue-600',
+        'livewire-tiptap-toolbar-dropdown-menu' => '',
+        'livewire-tiptap-toolbar-dropdown-option' => '',
+        'livewire-tiptap-toolbar-dropdown-option-active' => '',
     ],
 
     /**

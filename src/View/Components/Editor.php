@@ -99,6 +99,7 @@ class Editor extends Component
                     'type' => 'dropdown',
                     'options' => array_map([$this, 'mapTokenToButton'], $groups[$token]),
                     'icon' => $groups[$token][0],
+                    'active' => $groups[$token][0],
                 ];
             }
 
@@ -156,11 +157,12 @@ class Editor extends Component
             'livewire-tiptap-toolbar-spacer',
             'livewire-tiptap-toolbar-button',
             'livewire-tiptap-toolbar-button-active',
-            'livewire-tiptap-dropdown',
-            'livewire-tiptap-dropdown-button',
-            'livewire-tiptap-dropdown-menu',
-            'livewire-tiptap-dropdown-option',
-            'livewire-tiptap-dropdown-option-active',
+            'livewire-tiptap-toolbar-dropdown',
+            'livewire-tiptap-toolbar-dropdown-button',
+            'livewire-tiptap-toolbar-dropdown-button-active',
+            'livewire-tiptap-toolbar-dropdown-menu',
+            'livewire-tiptap-toolbar-dropdown-option',
+            'livewire-tiptap-toolbar-dropdown-option-active',
         ];
 
         $this->classes = [];
@@ -177,14 +179,8 @@ class Editor extends Component
 
     protected function buildProperty(string $key): string
     {
-        $base = preg_replace('/^livewire-tiptap-/', '', $key);
-        $parts = explode('-', $base);
-        $camel = array_shift($parts);
+        $prop = preg_replace('/^livewire-tiptap-/', '', $key);
 
-        foreach ($parts as $part) {
-            $camel .= ucfirst($part);
-        }
-
-        return $camel . 'Class';
+        return $prop;
     }
 }
