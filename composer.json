@@ -1,0 +1,87 @@
+{
+    "version": "0.1.0-alpha.1",
+    "name": "dudelisius/livewire-tiptap",
+    "description": "Easily integrate the Tiptap editor into your livewire projects",
+    "keywords": [
+        "dudelisius",
+        "laravel",
+        "livewire-tiptap"
+    ],
+    "homepage": "https://github.com/dudelisius/livewire-tiptap",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rick de Graaf",
+            "email": "hello@rickdegraaf.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "illuminate/contracts": "^10.0||^11.0||^12.0",
+        "livewire/livewire": "^3.6",
+        "secondnetwork/blade-tabler-icons": "^3.34",
+        "spatie/laravel-package-tools": "^1.16"
+    },
+    "require-dev": {
+        "larastan/larastan": "^3.5",
+        "laravel/pint": "^1.14",
+        "nunomaduro/collision": "^8.1.1||^7.10.0",
+        "orchestra/testbench": "^10.0.0||^9.0.0||^8.22.0",
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-arch": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "pestphp/pest-plugin-type-coverage": "^3.5",
+        "phpstan/extension-installer": "^1.3||^2.0",
+        "phpstan/phpstan-deprecation-rules": "^1.1||^2.0",
+        "phpstan/phpstan-phpunit": "^1.3||^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dudelisius\\LivewireTiptap\\": "src/",
+            "Dudelisius\\LivewireTiptap\\Database\\Factories\\": "database/factories/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/",
+            "Workbench\\App\\": "workbench/app/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": "@composer run prepare",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": "vendor/bin/pest --parallel",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "type-coverage": "./vendor/bin/pest --type-coverage --memory-limit=2G || true",
+        "format": "vendor/bin/pint",
+        "qa": [
+            "composer prepare",
+            "composer format",
+            "composer analyse",
+            "composer type-coverage",
+            "composer test",
+            "composer test-coverage"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dudelisius\\LivewireTiptap\\LivewireTiptapServiceProvider"
+            ],
+            "aliases": {
+                "LivewireTiptap": "Dudelisius\\LivewireTiptap\\Facades\\LivewireTiptap"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

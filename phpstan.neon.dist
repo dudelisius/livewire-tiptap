@@ -1,0 +1,21 @@
+includes:
+
+
+parameters:
+  level: 5
+
+  paths:
+    - src
+    - config
+
+  tmpDir: build/phpstan
+
+  checkOctaneCompatibility: true
+  checkModelProperties: true
+  reportUnmatchedIgnoredErrors: false
+
+  ignoreErrors:
+    # Suppress the false-positive in Editor.php when calling view() dynamically
+    - message: '/Parameter #1 \$view of function view expects view-string\|null, string given/'
+      paths:
+        - %currentWorkingDirectory%/src/View/Components/Editor.php
