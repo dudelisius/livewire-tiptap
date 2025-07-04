@@ -83,7 +83,7 @@ class Editor extends Component
         $groups = [];
         $counter = 0;
 
-        $raw = preg_replace_callback('/\[([^\]]+)\]/', function ($m) use (&$groups, &$counter) {
+        $raw = preg_replace_callback('/\[([^\]]+)\]/', function (array $m) use (&$groups, &$counter) {
             $key = "__group{$counter}__";
             $groups[$key] = preg_split('/\s+/', trim($m[1]));
             $counter++;
@@ -95,12 +95,16 @@ class Editor extends Component
 
         return array_map(function (string $token) use ($groups) {
             if (isset($groups[$token])) {
-                return [
+                $dropdownButton = [
+                    ...$this->mapTokenToButton($groups[$token][0]),
                     'type' => 'dropdown',
                     'options' => array_map([$this, 'mapTokenToButton'], $groups[$token]),
-                    'icon' => $groups[$token][0],
                     'active' => $groups[$token][0],
                 ];
+
+                unset($dropdownButton['action'], $dropdownButton['label']);
+
+                return $dropdownButton;
             }
 
             return $this->mapTokenToButton($token);
@@ -117,29 +121,29 @@ class Editor extends Component
         }
 
         $name = $token;
-        $option = [];
+        $options = [];
 
         if (preg_match('/^([a-zA-Z]+)-(\d+)$/', $token, $m)) {
             [, $name, $level] = $m;
-            $option = ['level' => (int) $level];
-            $icon = "h-{$level}";
-        } else {
-            $icon = $name;
+            $options = ['level' => (int) $level];
         }
 
         $action = match ($name) {
-            'undo', 'redo' => $name,
+            'paragraph' => 'setParagraph',
             'link' => 'setLink',
             'unlink' => 'unsetLink',
+            'undo', 'redo' => $name,
             default => 'toggle' . ucfirst($name),
         };
 
         return [
             'type' => 'button',
+            'token' => $token,
             'action' => $action,
-            'icon' => $icon,
+            'icon-component' => config('livewire-tiptap.buttons.' . $token . '.icon', 'tabler-' . $token),
             'active' => $name,
-            'option' => $option,
+            'options' => $options,
+            'label' => config('livewire-tiptap.buttons.' . $token . '.label'),
         ];
     }
 
@@ -157,12 +161,13 @@ class Editor extends Component
             'livewire-tiptap-toolbar-spacer',
             'livewire-tiptap-toolbar-button',
             'livewire-tiptap-toolbar-button-active',
+            'livewire-tiptap-toolbar-dropdown-wrapper',
             'livewire-tiptap-toolbar-dropdown',
             'livewire-tiptap-toolbar-dropdown-button',
             'livewire-tiptap-toolbar-dropdown-button-active',
             'livewire-tiptap-toolbar-dropdown-menu',
-            'livewire-tiptap-toolbar-dropdown-option',
-            'livewire-tiptap-toolbar-dropdown-option-active',
+            'livewire-tiptap-toolbar-dropdown-button',
+            'livewire-tiptap-toolbar-dropdown-button-active',
         ];
 
         $this->classes = [];

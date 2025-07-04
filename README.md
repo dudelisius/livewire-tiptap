@@ -101,16 +101,16 @@ composer qa
 
 ## Roadmap
 
-These items are not in chronological order
+These items are not in chronological order;
 
 - [ ] Add more editor options
-    - [ ] Strike
-    - [ ] Subscript
-    - [ ] Superscript
+    - [x] Strike
+    - [x] Subscript
+    - [x] Superscript
     - [ ] Text Style
     - [ ] Blockquote
-    - [ ] Bullet list
-    - [ ] Code block
+    - [x] Bullet list
+    - [x] Code block
     - [ ] Details
     - [ ] Details content
     - [ ] Details summary
@@ -118,9 +118,9 @@ These items are not in chronological order
     - [ ] Hard break
     - [ ] Horizontal rule
     - [ ] Image
-    - [ ] List item
-    - [ ] Ordered list
-    - [ ] Paragraph
+    - [x] List item
+    - [x] Ordered list
+    - [x] Paragraph
     - [ ] Table
     - [ ] Table cell
     - [ ] Table header
@@ -142,3 +142,8 @@ These items are not in chronological order
 - [ ] Add custom buttons
 - [ ] Hook into tiptap events
 - [ ] Add bubble menu support
+- [ ] When editor is active save (by calling defined save function) the contents on ctrl+s or cmd+s
+- [x] Add dropdown support
+- [ ] Add language support
+- [ ] Enable/disable tooltips
+- [ ] Allow to publish the view files

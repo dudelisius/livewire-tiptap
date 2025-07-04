@@ -16,26 +16,13 @@
         <div id="livewire-tiptap-toolbar" class="{{ $classes['toolbar'] }}">
             @foreach ($toolbarButtons as $button)
                 @if ($button['type'] === 'dropdown')
-                    <x-livewire-tiptap::dropdown
-                        :toolbarButtonClass="$classes['toolbar-button']"
-                        :toolbarButtonActiveClass="$classes['toolbar-button-active']"
-                        :icon="$button['icon']"
-                        :active="$button['active']"
-                        :options="$button['options']"
-                    />
+                    <x-livewire-tiptap::dropdown :$button :$classes/>
                 @elseif ($button['type'] === 'separator')
                     <div class="{{ $classes['toolbar-border'] }}"></div>
                 @elseif ($button['type'] === 'spacer')
                     <div class="{{ $classes['toolbar-spacer'] }}"></div>
                 @else
-                    <x-livewire-tiptap::button
-                        :toolbarButtonClass="$classes['toolbar-button']"
-                        :toolbarButtonActiveClass="$classes['toolbar-button-active']"
-                        @click="{{ $button['action'] }}({{ json_encode($button['option']) }})"
-                        :icon="$button['icon']"
-                        :active="$button['active']"
-                        :option="$button['option']"
-                    />
+                    <x-livewire-tiptap::button :$button :$classes/>
                 @endif
             @endforeach
         </div>

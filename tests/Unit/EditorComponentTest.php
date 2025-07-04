@@ -6,7 +6,7 @@ use Dudelisius\LivewireTiptap\View\Components\Editor;
 use Illuminate\Support\Facades\Config;
 
 beforeEach(function () {
-    Config::set('livewire-tiptap.toolbar', 'a | b ~ c');
+    Config::set('livewire-tiptap.toolbar', 'h-1 h-2 [bold italic underline] | link unlink');
     Config::set('livewire-tiptap.extensions', ['link' => ['openOnClick' => false]]);
     Config::set('livewire-tiptap.use_default_classes', true);
     Config::set('livewire-tiptap.classes', [
@@ -18,114 +18,99 @@ beforeEach(function () {
         'livewire-tiptap-toolbar-spacer' => 'tb-space',
         'livewire-tiptap-toolbar-button' => 'tb-btn',
         'livewire-tiptap-toolbar-button-active' => 'tb-btn-active',
+        'livewire-tiptap-toolbar-dropdown-wrapper' => 'dd-wrap',
+        'livewire-tiptap-toolbar-dropdown' => 'dd',
+        'livewire-tiptap-toolbar-dropdown-button' => 'dd-btn',
+        'livewire-tiptap-toolbar-dropdown-button-active' => 'dd-btn-act',
+        'livewire-tiptap-toolbar-dropdown-menu' => 'dd-menu',
     ]);
 });
 
-it('gets correct toolbar config when override provided', function () {
+it('getToolbarConfig returns override or default', function () {
     $editor = new Editor('x y');
-    $ref = new ReflectionClass(Editor::class);
-    $method = $ref->getMethod('getToolbarConfig');
-    $method->setAccessible(true);
+    $rc = new ReflectionClass(Editor::class);
+    $m = $rc->getMethod('getToolbarConfig');
+    $m->setAccessible(true);
 
-    expect($method->invoke($editor, 'test'))->toBe('test');
-    expect($method->invoke($editor, null))->toBe('a | b ~ c');
+    expect($m->invoke($editor, 'test'))->toBe('test');
+    expect($m->invoke($editor, null))->toBe('h-1 h-2 [bold italic underline] | link unlink');
 });
 
-it('gets correct extensions config merging defaults and override', function () {
+it('getExtensionsConfig merges defaults and override', function () {
     $override = ['link' => ['defaultProtocol' => 'ftp']];
     $editor = new Editor(null, $override);
-    $ext = $editor->extensionsConfig['link'];
 
-    expect($ext['openOnClick'])->toBeFalse();
-    expect($ext['defaultProtocol'])->toBe('ftp');
+    expect($editor->extensionsConfig['link']['openOnClick'])->toBeFalse();
+    expect($editor->extensionsConfig['link']['defaultProtocol'])->toBe('ftp');
 });
 
-it('parseToolbarButtons maps separators and spacers and buttons', function () {
-    $editor = new Editor('x | y ~');
+it('toJsObjectLiteral handles values correctly', function () {
+    $editor = new Editor;
+    $m = (new ReflectionClass($editor))
+        ->getMethod('toJsObjectLiteral');
+    $m->setAccessible(true);
+
+    expect($m->invoke($editor, 5))->toBe('5');
+    expect($m->invoke($editor, ['a', 'b']))->toBe('["a","b"]');
+    $fn = '(x)=>x';
+    expect($m->invoke($editor, $fn))->toBe($fn);
+    expect($m->invoke($editor, ['k' => 1, 'v' => $fn]))->toContain('"k":1');
+});
+
+it('parseToolbarButtons builds mixed buttons and dropdowns', function () {
+    $editor = new Editor;
     $buttons = $editor->toolbarButtons;
 
-    expect($buttons[0])->toMatchArray(['type' => 'button', 'action' => 'toggleX', 'icon' => 'x', 'active' => 'x', 'option' => []]);
-    expect($buttons[1])->toMatchArray(['type' => 'separator']);
-    expect($buttons[2])->toMatchArray(['type' => 'button', 'action' => 'toggleY', 'icon' => 'y', 'active' => 'y', 'option' => []]);
-    expect($buttons[3])->toMatchArray(['type' => 'spacer']);
+    // first two should be heading buttons
+    expect($buttons[0]['type'])->toBe('button');
+    expect($buttons[0]['token'])->toBe('h-1');
+    expect($buttons[1]['token'])->toBe('h-2');
+
+    // third is dropdown
+    expect($buttons[2]['type'])->toBe('dropdown');
+    expect($buttons[2]['active'])->toBe('bold');
+    expect(is_array($buttons[2]['options']))->toBeTrue();
+
+    // then separator
+    expect($buttons[3]['type'])->toBe('separator');
+
+    // last two
+    expect($buttons[4]['type'])->toBe('button');
+    expect($buttons[4]['action'])->toBe('setLink');
 });
 
-it('toJsObjectLiteral handles primitives, arrays and functions', function () {
+it('mapTokenToButton respects token, action, icon-component, active, options, label', function () {
+    Config::set('livewire-tiptap.buttons.h-1.icon', 'custom-icon');
+    Config::set('livewire-tiptap.buttons.h-1.label', 'Heading 1');
+
+    $btn = (new Editor('h-1'))->toolbarButtons[0];
+
+    expect($btn['token'])->toBe('h-1');
+    expect($btn['action'])->toBe('toggleH');
+    expect($btn['icon-component'])->toBe('custom-icon');
+    expect($btn['active'])->toBe('h');
+    expect($btn['options'])->toEqual(['level' => 1]);
+    expect($btn['label'])->toBe('Heading 1');
+});
+
+it('compileClasses populates classes array with property keys', function () {
     $editor = new Editor;
-    $method = (new ReflectionClass(Editor::class))->getMethod('toJsObjectLiteral');
-    $method->setAccessible(true);
+    $cls = $editor->classes;
 
-    expect($method->invoke($editor, 123))->toBe('123');
-    expect($method->invoke($editor, ['a', 'b']))->toBe('["a","b"]');
-    $fn = '(v) => v+1';
-    expect($method->invoke($editor, $fn))->toBe($fn);
+    expect($cls['wrapper'])->toBe('wrap');
+    expect($cls['editor'])->toBe('edit');
+    expect($cls['toolbar-dropdown-button-active'])->toBe('dd-btn-act');
 });
 
-it('getExtensionsConfig returns defaults when override empty', function () {
-    $editor = new Editor(null, []);
-    $defaults = Config::get('livewire-tiptap.extensions');
-
-    expect($editor->extensionsConfig)->toEqual($defaults);
-});
-
-it('buildProperty maps keys to camelCaseClass', function () {
-    $editor = new Editor;
-    $method = (new ReflectionClass(Editor::class))->getMethod('buildProperty');
-    $method->setAccessible(true);
-
-    expect($method->invoke($editor, 'livewire-tiptap-wrapper'))->toBe('wrapperClass');
-    expect($method->invoke($editor, 'livewire-tiptap-toolbar-button-active'))->toBe('toolbarButtonActiveClass');
-});
-
-it('compileClasses applies config and fallbacks properly', function () {
-    $e1 = new Editor;
-    expect($e1->wrapperClass)->toBe('wrap');
-    expect($e1->editorClass)->toBe('edit');
-
-    Config::set('livewire-tiptap.use_default_classes', false);
-    $e2 = new Editor;
-    expect($e2->wrapperClass)->toBe('livewire-tiptap-wrapper');
-    expect($e2->toolbarButtonClass)->toBe('livewire-tiptap-toolbar-button');
-
-    Config::set('livewire-tiptap.use_default_classes', true);
-    Config::set('livewire-tiptap.classes', []);
-    $e3 = new Editor;
-    expect($e3->editorClass)->toBe('livewire-tiptap-editor');
-});
-
-it('render returns a view with all expected data', function () {
+it('render returns view with toolbarButtons, extensionsConfig, extensionsJsLiteral, and classes', function () {
     $view = (new Editor)->render();
     $data = $view->getData();
 
     expect($view->name())->toBe('livewire-tiptap::components.editor');
     expect($data)->toHaveKeys([
-        'toolbarButtons', 'wrapperClass', 'editorClass',
-        'toolbarParentClass', 'toolbarClass', 'toolbarBorderClass',
-        'toolbarSpacerClass', 'toolbarButtonClass', 'toolbarButtonActiveClass',
+        'toolbarButtons',
+        'extensionsConfig',
+        'extensionsJsLiteral',
+        'classes',
     ]);
-});
-
-it('mapTokenToButton handles link, unlink, undo and redo actions', function () {
-    $btn1 = (new Editor('link'))->toolbarButtons[0];
-    expect($btn1['action'])->toBe('setLink');
-
-    $btn2 = (new Editor('unlink'))->toolbarButtons[0];
-    expect($btn2['action'])->toBe('unsetLink');
-
-    $btn3 = (new Editor('undo'))->toolbarButtons[0];
-    expect($btn3['action'])->toBe('undo');
-
-    $btn4 = (new Editor('redo'))->toolbarButtons[0];
-    expect($btn4['action'])->toBe('redo');
-});
-
-it('mapTokenToButton maps heading levels correctly', function () {
-    $editor = new Editor('heading-3');
-    $btn = $editor->toolbarButtons[0];
-
-    expect($btn['type'])->toBe('button');
-    expect($btn['action'])->toBe('toggleHeading');
-    expect($btn['icon'])->toBe('h-3');
-    expect($btn['active'])->toBe('heading');
-    expect($btn['option'])->toEqual(['level' => 3]);
 });

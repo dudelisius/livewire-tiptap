@@ -1,6 +1,7 @@
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
-import Code from '@tiptap/extension-code';
+import Subscript from '@tiptap/extension-subscript';
+import Superscript from '@tiptap/extension-superscript';
 import Highlight from '@tiptap/extension-highlight';
 import Link from '@tiptap/extension-link';
 import Underline from '@tiptap/extension-underline';
@@ -11,6 +12,7 @@ document.addEventListener('alpine:init', () => {
 
         return {
             content: content,
+            editor: editor,
             updatedAt: Date.now(),
 
             init() {
@@ -20,8 +22,9 @@ document.addEventListener('alpine:init', () => {
                     element: this.$refs.livewireTiptapEditor,
                     content: this.content,
                     extensions: [
-                        StarterKit.configure({ code: false }),
-                        Code,
+                        StarterKit,
+                        Subscript,
+                        Superscript,
                         Highlight,
                         Link.configure(extensionConfig.link),
                         Underline
@@ -49,20 +52,43 @@ document.addEventListener('alpine:init', () => {
             isActive(type, opts = {}) {
                 return editor.isActive(type, opts)
             },
+            setParagraph() {
+                editor.chain().focus().setParagraph().run()
+            },
             toggleHeading(opts) {
                 editor.chain().focus().toggleHeading(opts).run();
             },
             toggleBold() {
                 editor.chain().focus().toggleBold().run()
             },
+            toggleItalic() {
+                editor.chain().focus().toggleItalic().run()
+            },
+            toggleStrike() {
+                editor.chain().focus().toggleStrike().run()
+            },
+            toggleUnderline() {
+                editor.chain().focus().toggleUnderline().run()
+            },
+            toggleBulletList() {
+                console.log('toggle bullet list')
+                editor.chain().focus().toggleBulletList().run();
+            },
+            toggleOrderedList() {
+                console.log('toggle ordered list')
+                editor.chain().focus().toggleOrderedList().run();
+            },
+            toggleSubscript() {
+                editor.chain().focus().toggleSubscript().run();
+            },
+            toggleSuperscript() {
+                editor.chain().focus().toggleSuperscript().run();
+            },
             toggleCode() {
                 editor.chain().focus().toggleCode().run();
             },
             toggleHighlight() {
                 editor.chain().focus().toggleHighlight().run()
-            },
-            toggleItalic() {
-                editor.chain().focus().toggleItalic().run();
             },
             setLink() {
                 const previousUrl = editor.getAttributes('link').href
@@ -79,9 +105,6 @@ document.addEventListener('alpine:init', () => {
             },
             unsetLink() {
                 editor.chain().focus().unsetLink().run();
-            },
-            toggleUnderline() {
-                editor.chain().focus().toggleUnderline().run();
             },
             setTextAlign(align) {
                 editor.chain().focus().setTextAlign(align).run()
