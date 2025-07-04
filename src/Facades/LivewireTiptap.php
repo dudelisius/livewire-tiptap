@@ -8,9 +8,11 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @see \Dudelisius\LivewireTiptap\LivewireTiptap
+ * @psalm-suppress UnusedClass
  */
 class LivewireTiptap extends Facade
 {
+    #[\Override]
     protected static function getFacadeAccessor(): string
     {
         return \Dudelisius\LivewireTiptap\LivewireTiptap::class;

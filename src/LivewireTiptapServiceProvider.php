@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\Blade;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
+/** @psalm-suppress UnusedClass */
 class LivewireTiptapServiceProvider extends PackageServiceProvider
 {
+    #[\Override]
     public function configurePackage(Package $package): void
     {
         $package
@@ -19,6 +21,7 @@ class LivewireTiptapServiceProvider extends PackageServiceProvider
             ->hasAssets();
     }
 
+    #[\Override]
     public function bootingPackage(): void
     {
         Blade::directive('livewireTiptapStyles', function () {

@@ -7,6 +7,7 @@ namespace Dudelisius\LivewireTiptap\View\Components;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
+/** @psalm-suppress UnusedClass */
 class Editor extends Component
 {
     public array $toolbarButtons;
@@ -25,6 +26,7 @@ class Editor extends Component
         $this->compileClasses();
     }
 
+    #[\Override]
     public function render(): View
     {
         /** @var view-string */
