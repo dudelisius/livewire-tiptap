@@ -52,7 +52,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require --dev "laravel/framework:10.*" "orchestra/testbench:8.*" --no-interaction --no-update
+          composer install --prefer-dist --no-interaction
           composer update --with-all-dependencies --${{ matrix.stability }} --prefer-dist --no-interaction
 
       - name: List installed dependencies
