@@ -8,6 +8,7 @@ on:
 
 jobs:
   psalm-scan:
+    name: Psalm Security Scan
     runs-on: ubuntu-latest
     permissions:
       contents: read
