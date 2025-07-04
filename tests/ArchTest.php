@@ -15,11 +15,15 @@ test('ensure no todos are left')
     ->expect(['TODO', 'FIXME', 'XXX'])
     ->not->toBeUsed();
 
-test('livewire components extend base component')
-    ->expect('Dudelisius\LivewireTiptap\Components')
-    ->toExtend('Livewire\Component')
-    ->ignoring('Dudelisius\LivewireTiptap\Components\BaseComponent');
+test('livewire components extend base component', function () {
+    arch()
+        ->expect('Dudelisius\LivewireTiptap\Components')
+        ->toExtend('Livewire\Component')
+        ->ignoring('Dudelisius\LivewireTiptap\Components\BaseComponent');
+});
 
-test('facades extend base facade')
-    ->expect('Dudelisius\LivewireTiptap\Facades')
-    ->toExtend('Illuminate\Support\Facades\Facade');
+test('facades extend base facade', function () {
+    arch()
+        ->expect('Dudelisius\LivewireTiptap\Facades')
+        ->toExtend('Illuminate\Support\Facades\Facade');
+});
