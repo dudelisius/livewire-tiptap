@@ -1,0 +1,29 @@
+image: php:8.3-cli
+
+stages:
+  - test
+  - security
+
+variables:
+  COMPOSER_ALLOW_SUPERUSER: "1"
+  COMPOSER_MEMORY_LIMIT: "-1"
+
+before_script:
+  - apt update && apt install -y git unzip
+  - php -r "copy('https://getcomposer.org/installer','composer-setup.php');"
+  - php composer-setup.php --quiet
+  - mv composer.phar /usr/local/bin/composer
+  - composer install --prefer-dist --no-progress --no-interaction
+
+psalm_security_scan:
+  stage: security
+  script:
+    - vendor/bin/psalm --find-dead-code --show-info=false --output-format=xml > psalm-report.xml
+    - vendor/bin/psalm --plugin vendor/psalm/plugin-security --show-info=false --output-format=xml > psalm-report.xml
+  artifacts:
+    when: always
+    reports:
+      sast: psalm-report.xml
+  only:
+    - main
+    - merge_requests
