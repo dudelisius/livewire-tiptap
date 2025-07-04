@@ -1,5 +1,4 @@
 {
-    "version": "v0.1.0-alpha.2",
     "name": "dudelisius/livewire-tiptap",
     "description": "Easily integrate the Tiptap editor into your livewire projects",
     "keywords": [
