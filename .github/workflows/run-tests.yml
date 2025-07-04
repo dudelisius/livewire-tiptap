@@ -52,9 +52,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          # Install the proper Laravel & Testbench combo, plus dev dependencies
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
-          # Now update everything, allowing Composer to swap plugin versions as needed
           composer update --with-all-dependencies --${{ matrix.stability }} --prefer-dist --no-interaction
 
       - name: List installed dependencies
