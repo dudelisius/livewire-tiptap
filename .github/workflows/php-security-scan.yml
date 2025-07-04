@@ -1,0 +1,35 @@
+name: PHP Security Scan
+
+on:
+  push:
+    branches: [ main, dev, development ]
+  pull_request:
+    branches: [ main, dev, development ]
+
+jobs:
+  psalm-scan:
+    name: Run Psalm & upload SARIF
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer
+
+      - name: Install dependencies
+        run: composer install --no-progress --no-interaction
+
+      - name: Run Psalm Security Scan
+        run: |
+          # genereer een SARIF‐output
+          vendor/bin/psalm --show-info=false --output-format=github-sarif > psalm-report.sarif
+
+      - name: Upload SARIF for Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: psalm-report.sarif
