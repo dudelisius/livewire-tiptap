@@ -17,10 +17,6 @@ abstract class TestCase extends Orchestra
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'Dudelisius\\LivewireTiptap\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
-
-        if (! file_exists($this->app->environmentPath() . '/.env')) {
-            touch($this->app->environmentPath() . '/.env');
-        }
     }
 
     protected function getPackageProviders($app)
@@ -28,16 +24,5 @@ abstract class TestCase extends Orchestra
         return [
             LivewireTiptapServiceProvider::class,
         ];
-    }
-
-    protected function getEnvironmentSetUp($app)
-    {
-        $app['config']->set('app.key', 'base64:' . base64_encode(random_bytes(32)));
-        $app['config']->set('database.default', 'testing');
-        $app['config']->set('database.connections.testing', [
-            'driver' => 'sqlite',
-            'database' => ':memory:',
-            'prefix' => '',
-        ]);
     }
 }

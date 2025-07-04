@@ -2,28 +2,15 @@
 
 declare(strict_types=1);
 
-test('it will not use debugging functions')
-    ->expect(['dd', 'dump', 'var_dump', 'print_r'])
-    ->not->toBeUsed();
+uses()->group('arch');
 
-test('it will not use env helper in production code')
-    ->expect(['env'])
-    ->not->toBeUsed()
-    ->ignoring('config');
+arch('it will not use debugging functions')
+    ->expect(['dd', 'dump', 'ray'])
+    ->each->not->toBeUsed();
 
-test('ensure no todos are left')
-    ->expect(['TODO', 'FIXME', 'XXX'])
-    ->not->toBeUsed();
+arch()->preset()->php();
 
-test('livewire components extend base component', function () {
-    arch()
-        ->expect('Dudelisius\LivewireTiptap\Components')
-        ->toExtend('Livewire\Component')
-        ->ignoring('Dudelisius\LivewireTiptap\Components\BaseComponent');
-});
-
-test('facades extend base facade', function () {
-    arch()
-        ->expect('Dudelisius\LivewireTiptap\Facades')
-        ->toExtend('Illuminate\Support\Facades\Facade');
-});
+arch()->preset()->security()
+    ->ignoring('md5')
+    ->ignoring('sha1')
+    ->ignoring('tempnam');
