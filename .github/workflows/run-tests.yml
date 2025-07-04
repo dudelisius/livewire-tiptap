@@ -25,9 +25,12 @@ jobs:
         laravel: [10.*, 11.*, 12.*]
         stability: [prefer-lowest, prefer-stable]
         include:
-          - laravel: 10.*; testbench: 8.*
-          - laravel: 11.*; testbench: 9.*
-          - laravel: 12.*; testbench: 10.*
+          - laravel: 10.*
+            testbench: 8.*
+          - laravel: 11.*
+            testbench: 9.*
+          - laravel: 12.*
+            testbench: 10.*
 
     name: P${{ matrix.php }} · L${{ matrix.laravel }} · ${{ matrix.stability }} · ${{ matrix.os }}
 
@@ -36,7 +39,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Create Environment file
-      run: |
+        run: |
           echo "APP_NAME=Laravel" >> .env
           echo "APP_ENV=testing" >> .env
           echo "APP_KEY=base64:$(openssl rand -base64 32)" >> .env
@@ -57,16 +60,16 @@ jobs:
           echo "::add-matcher::${{ runner.tool_cache }}/php.json"
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
-      - name: Install & update dependencies
+      - name: Install dependencies
         run: |
-          composer install --prefer-dist --no-interaction
-          composer update --with-all-dependencies --${{ matrix.stability }} --prefer-dist --no-interaction
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
       - name: List installed dependencies
         run: composer show -D
 
-      - name: Run tests
-        run: vendor/bin/pest --ci --coverage --min=80 || vendor/bin/pest --ci
+      - name: Execute tests
+        run: vendor/bin/pest --ci
 
       - name: Debug failing tests
         if: failure()
