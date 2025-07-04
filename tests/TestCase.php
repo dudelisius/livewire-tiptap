@@ -25,9 +25,4 @@ abstract class TestCase extends Orchestra
             LivewireTiptapServiceProvider::class,
         ];
     }
-
-    public function getEnvironmentSetUp($app)
-    {
-        config()->set('database.default', 'testing');
-    }
 }
