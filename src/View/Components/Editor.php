@@ -6,6 +6,7 @@ namespace Dudelisius\LivewireTiptap\View\Components;
 
 use Illuminate\View\Component;
 use Illuminate\View\View;
+use Override;
 
 /** @psalm-suppress UnusedClass */
 class Editor extends Component
@@ -26,7 +27,7 @@ class Editor extends Component
         $this->compileClasses();
     }
 
-    #[\Override]
+    #[Override]
     public function render(): View
     {
         /** @var view-string */

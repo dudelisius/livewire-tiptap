@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Dudelisius\LivewireTiptap;
 
 use Illuminate\Support\Facades\Blade;
+use Override;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 /** @psalm-suppress UnusedClass */
 class LivewireTiptapServiceProvider extends PackageServiceProvider
 {
-    #[\Override]
+    #[Override]
     public function configurePackage(Package $package): void
     {
         $package
@@ -21,7 +22,7 @@ class LivewireTiptapServiceProvider extends PackageServiceProvider
             ->hasAssets();
     }
 
-    #[\Override]
+    #[Override]
     public function bootingPackage(): void
     {
         Blade::directive('livewireTiptapStyles', function () {
