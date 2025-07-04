@@ -32,7 +32,6 @@ jobs:
           - laravel: 10.*
             testbench: 8.*
 
-
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
     steps:
@@ -53,10 +52,12 @@ jobs:
 
       - name: Install dependencies
         run: |
+          # Install the proper Laravel & Testbench combo, plus dev dependencies
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
-          composer update --${{ matrix.stability }} --prefer-dist --no-interaction
+          # Now update everything, allowing Composer to swap plugin versions as needed
+          composer update --with-all-dependencies --${{ matrix.stability }} --prefer-dist --no-interaction
 
-      - name: List Installed Dependencies
+      - name: List installed dependencies
         run: composer show -D
 
       - name: Execute tests
