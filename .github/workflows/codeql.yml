@@ -1,0 +1,33 @@
+name: "CodeQL Analysis"
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    # Je kunt hier beperken op je feature branches
+    branches: [ main ]
+
+jobs:
+  codeql:
+    name: Analyze with CodeQL
+    runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
+      contents: read
+      security-events: write  # voor Code Scanning
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: php
+
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
+
+    - name: Run CodeQL analysis
+      uses: github/codeql-action/analyze@v2
