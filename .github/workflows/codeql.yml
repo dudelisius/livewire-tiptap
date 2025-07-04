@@ -18,7 +18,7 @@ jobs:
 
     strategy:
       matrix:
-        language: [ 'php' ]
+        language: ['php']
 
     steps:
       - name: Checkout repository
@@ -27,7 +27,7 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
-          languages: php
+          languages: ['php']
 
       - name: Build project
         uses: github/codeql-action/autobuild@v3
