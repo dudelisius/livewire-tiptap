@@ -26,7 +26,6 @@ jobs:
 
       - name: Run Psalm Security Scan
         run: |
-          # genereer een SARIF‐output
           vendor/bin/psalm --show-info=false --output-format=github-sarif > psalm-report.sarif
 
       - name: Upload SARIF for Code Scanning
