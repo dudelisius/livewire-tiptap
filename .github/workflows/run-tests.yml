@@ -53,7 +53,7 @@ jobs:
       - name: Install dependencies
         run: |
           composer install --prefer-dist --no-interaction
-          composer update --with-all-dependencies --${{ matrix.stability }} --prefer-dist --no-interaction
+          composer update --with-all-dependencies --prefer-lowest --no-interaction
 
       - name: List installed dependencies
         run: composer show -D
