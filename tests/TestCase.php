@@ -17,6 +17,10 @@ abstract class TestCase extends Orchestra
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'Dudelisius\\LivewireTiptap\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
+
+        if (! file_exists($this->app->environmentPath() . '/.env')) {
+            touch($this->app->environmentPath() . '/.env');
+        }
     }
 
     protected function getPackageProviders($app)

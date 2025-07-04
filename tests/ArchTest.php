@@ -17,11 +17,9 @@ test('ensure no todos are left')
 
 test('livewire components extend base component')
     ->expect('Dudelisius\LivewireTiptap\Components')
-    ->classes()
     ->toExtend('Livewire\Component')
     ->ignoring('Dudelisius\LivewireTiptap\Components\BaseComponent');
 
 test('facades extend base facade')
     ->expect('Dudelisius\LivewireTiptap\Facades')
-    ->classes()
     ->toExtend('Illuminate\Support\Facades\Facade');
