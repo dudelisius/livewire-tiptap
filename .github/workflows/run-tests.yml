@@ -70,9 +70,3 @@ jobs:
 
       - name: Execute tests
         run: vendor/bin/pest --ci
-
-      - name: Debug failing tests
-        if: failure()
-        run: |
-          cat storage/logs/laravel.log || echo "No log file found"
-          vendor/bin/pest --verbose
