@@ -119,6 +119,7 @@ class Editor extends Component
         if ($token === '|') {
             return ['type' => 'separator'];
         }
+
         if ($token === '~') {
             return ['type' => 'spacer'];
         }

@@ -7,8 +7,8 @@ return [
      * --------------------------------------------------------------------------
      * Toolbar Default Configuration
      * --------------------------------------------------------------------------
-     * Define the default toolbar buttons and groups. Use `|` to separate groups
-     * and `~` to insert a flexible spacer between button sets.
+     * Define the default toolbar buttons and groups. Use `|` to separate groups,
+     * `~` to insert a flexible spacer between button sets and `[...]` to create dropdowns.
      */
     'toolbar' => '[paragraph heading-1 heading-2 heading-3 heading-4 heading-5 heading-6] | bold italic underline strike | bulletList orderedList | subscript superscript | code highlight | link unlink ~ undo redo',
 

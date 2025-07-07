@@ -6,7 +6,7 @@ use Dudelisius\LivewireTiptap\View\Components\Editor;
 use Illuminate\Support\Facades\Config;
 
 beforeEach(function () {
-    Config::set('livewire-tiptap.toolbar', 'h-1 h-2 [bold italic underline] | link unlink');
+    Config::set('livewire-tiptap.toolbar', 'h-1 h-2 [bold italic underline] | link unlink ~ undo redo');
     Config::set('livewire-tiptap.extensions', ['link' => ['openOnClick' => false]]);
     Config::set('livewire-tiptap.use_default_classes', true);
     Config::set('livewire-tiptap.classes', [
@@ -17,7 +17,7 @@ beforeEach(function () {
         'livewire-tiptap-toolbar-border' => 'tb-border',
         'livewire-tiptap-toolbar-spacer' => 'tb-space',
         'livewire-tiptap-toolbar-button' => 'tb-btn',
-        'livewire-tiptap-toolbar-button-active' => 'tb-btn-active',
+        'livewire-tiptap-toolbar-button-active' => 'tb-btn-act',
         'livewire-tiptap-toolbar-dropdown-wrapper' => 'dd-wrap',
         'livewire-tiptap-toolbar-dropdown' => 'dd',
         'livewire-tiptap-toolbar-dropdown-button' => 'dd-btn',
@@ -33,7 +33,7 @@ it('getToolbarConfig returns override or default', function () {
     $m->setAccessible(true);
 
     expect($m->invoke($editor, 'test'))->toBe('test');
-    expect($m->invoke($editor, null))->toBe('h-1 h-2 [bold italic underline] | link unlink');
+    expect($m->invoke($editor, null))->toBe('h-1 h-2 [bold italic underline] | link unlink ~ undo redo');
 });
 
 it('getExtensionsConfig merges defaults and override', function () {
@@ -46,8 +46,7 @@ it('getExtensionsConfig merges defaults and override', function () {
 
 it('toJsObjectLiteral handles values correctly', function () {
     $editor = new Editor;
-    $m = (new ReflectionClass($editor))
-        ->getMethod('toJsObjectLiteral');
+    $m = (new ReflectionClass($editor))->getMethod('toJsObjectLiteral');
     $m->setAccessible(true);
 
     expect($m->invoke($editor, 5))->toBe('5');
@@ -79,9 +78,8 @@ it('parseToolbarButtons builds mixed buttons and dropdowns', function () {
     expect($buttons[4]['action'])->toBe('setLink');
 });
 
-it('mapTokenToButton respects token, action, icon-component, active, options, label', function () {
+it('mapTokenToButton respects token, action, icon-component, active, options', function () {
     Config::set('livewire-tiptap.buttons.h-1.icon', 'custom-icon');
-    Config::set('livewire-tiptap.buttons.h-1.label', 'Heading 1');
 
     $btn = (new Editor('h-1'))->toolbarButtons[0];
 
@@ -90,7 +88,6 @@ it('mapTokenToButton respects token, action, icon-component, active, options, la
     expect($btn['icon-component'])->toBe('custom-icon');
     expect($btn['active'])->toBe('h');
     expect($btn['options'])->toEqual(['level' => 1]);
-    expect($btn['label'])->toBe('Heading 1');
 });
 
 it('compileClasses populates classes array with property keys', function () {
@@ -113,4 +110,41 @@ it('render returns view with toolbarButtons, extensionsConfig, extensionsJsLiter
         'extensionsJsLiteral',
         'classes',
     ]);
+});
+
+it('mapTokenToButton maps paragraph correctly', function () {
+    $btn = (new Editor('paragraph'))->toolbarButtons[0];
+
+    expect($btn)->toMatchArray([
+        'type' => 'button',
+        'token' => 'paragraph',
+        'action' => 'setParagraph',
+        'icon-component' => 'tabler-letter-t',
+        'active' => 'paragraph',
+        'options' => [],
+        'label' => 'livewire-tiptap::buttons.paragraph',
+    ]);
+});
+
+it('parseToolbarButtons handles a standalone dropdown group', function () {
+    Config::set('livewire-tiptap.toolbar', '[a b c]');
+    $editor = new Editor;
+    $buttons = $editor->toolbarButtons;
+
+    expect(count($buttons))->toBe(1);
+    expect($buttons[0]['type'])->toBe('dropdown');
+    expect($buttons[0]['options'])->toHaveLength(3);
+
+    // first option in dropdown should be 'a'
+    expect($buttons[0]['active'])->toBe('a');
+});
+
+it('compileClasses returns fallback classes when defaults disabled', function () {
+    Config::set('livewire-tiptap.use_default_classes', false);
+    Config::set('livewire-tiptap.classes', []);
+    $editor = new Editor;
+    $classes = $editor->classes;
+
+    expect($classes['wrapper'])->toBe('livewire-tiptap-wrapper');
+    expect($classes['toolbar-dropdown'])->toBe('livewire-tiptap-toolbar-dropdown');
 });
