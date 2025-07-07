@@ -24,7 +24,7 @@ return [
     'ordered-list' => 'Lista numerada',
     'subscript' => 'Subíndice',
     'superscript' => 'Superíndice',
-    'link'  => 'Insertar enlace',
+    'link' => 'Insertar enlace',
     'unlink' => 'Eliminar enlace',
     'undo' => 'Deshacer',
     'redo' => 'Rehacer',

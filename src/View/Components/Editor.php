@@ -146,7 +146,7 @@ class Editor extends Component
             'icon-component' => config('livewire-tiptap.buttons.' . $token . '.icon', 'tabler-' . $token),
             'active' => $name,
             'options' => $options,
-            'label' => 'livewire-tiptap::buttons.' . $token
+            'label' => 'livewire-tiptap::buttons.' . $token,
         ];
     }
 
