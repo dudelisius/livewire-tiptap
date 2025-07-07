@@ -21,7 +21,7 @@
         {{ $slot }}
     @else
         @if (isset($button['icon-component']))
-            <x-dynamic-component :component="$button['icon-component']" />
+            <x-dynamic-component :component="$button['icon-component']" class="shrink-0" />
         @endif
 
         @if (isset($button['label']) && $showLabel)
