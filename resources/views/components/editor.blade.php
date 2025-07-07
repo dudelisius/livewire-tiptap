@@ -8,7 +8,7 @@
 @endphp
 
 <div
-    x-data="livewireTiptap({{ $entangle }}, $wire, @js($extensionsJsLiteral))"
+    x-data="livewireTiptap({{ $entangle }}, $wire, '{{ $extensionsJsLiteral }}')"
     wire:ignore
     class="{{ $classes['wrapper'] }}"
 >

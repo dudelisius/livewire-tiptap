@@ -22,7 +22,7 @@ class Editor extends Component
         $this->toolbarButtons = $this->parseToolbarButtons($rawToolbar);
 
         $this->extensionsConfig = $this->getExtensionsConfig($extensions);
-        $this->extensionsJsLiteral = $this->toJsObjectLiteral($this->extensionsConfig);
+        $this->extensionsJsLiteral = base64_encode(json_encode($this->toJsObjectLiteral($this->extensionsConfig)));
 
         $this->compileClasses();
     }
@@ -136,6 +136,8 @@ class Editor extends Component
             'paragraph' => 'setParagraph',
             'link' => 'setLink',
             'unlink' => 'unsetLink',
+            'hardBreak' => 'setHardBreak',
+            'horizontalRule' => 'setHorizontalRule',
             'undo', 'redo' => $name,
             default => 'toggle' . ucfirst($name),
         };

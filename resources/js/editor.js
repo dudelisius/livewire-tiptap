@@ -5,9 +5,12 @@ import Superscript from '@tiptap/extension-superscript';
 import Highlight from '@tiptap/extension-highlight';
 import Link from '@tiptap/extension-link';
 import Underline from '@tiptap/extension-underline';
+import Emoji from '@tiptap/extension-emoji';
+import HardBreak from '@tiptap/extension-hard-break';
+import HorizontalRule from '@tiptap/extension-horizontal-rule';
 
 document.addEventListener('alpine:init', () => {
-    Alpine.data('livewireTiptap', (content, livewireComponent, extensionConfig) => {
+    Alpine.data('livewireTiptap', (content, livewireComponent, b64) => {
         let editor
 
         return {
@@ -17,6 +20,7 @@ document.addEventListener('alpine:init', () => {
 
             init() {
                 const _this = this
+                const extensionConfig = JSON.parse(atob(b64));
 
                 editor = new Editor({
                     element: this.$refs.livewireTiptapEditor,
@@ -26,8 +30,11 @@ document.addEventListener('alpine:init', () => {
                         Subscript,
                         Superscript,
                         Highlight,
+                        Underline,
+                        HardBreak,
+                        HorizontalRule,
                         Link.configure(extensionConfig.link),
-                        Underline
+                        Emoji.configure(extensionConfig.emoji),
                     ],
                     onCreate({ editor }) {
                         _this.updatedAt = Date.now()
@@ -54,6 +61,12 @@ document.addEventListener('alpine:init', () => {
             },
             setParagraph() {
                 editor.chain().focus().setParagraph().run()
+            },
+            setHardBreak() {
+                editor.chain().focus().setHardBreak().run();
+            },
+            setHorizontalRule() {
+                editor.chain().focus().setHorizontalRule().run();
             },
             toggleHeading(opts) {
                 editor.chain().focus().toggleHeading(opts).run();
@@ -84,11 +97,14 @@ document.addEventListener('alpine:init', () => {
             toggleSuperscript() {
                 editor.chain().focus().toggleSuperscript().run();
             },
-            toggleCode() {
-                editor.chain().focus().toggleCode().run();
+            toggleBlockquote() {
+                editor.chain().focus().toggleBlockquote().run();
             },
             toggleHighlight() {
                 editor.chain().focus().toggleHighlight().run()
+            },
+            toggleCode() {
+                editor.chain().focus().toggleCode().run();
             },
             setLink() {
                 const previousUrl = editor.getAttributes('link').href
