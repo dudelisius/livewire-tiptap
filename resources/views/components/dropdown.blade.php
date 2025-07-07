@@ -8,7 +8,7 @@
         x-data="{
             open: false,
             options: @js($button['options']),
-            selected: null,
+            selected: '{{ $button['options'][0]['token'] }}',
             init() {
                 this.$watch('updatedAt', (value) => {
                     this.updateSelected();
@@ -46,7 +46,7 @@
             x-on:aria-controls="$id('dropdown-button')"
         >
             @foreach ($button['options'] as $buttonIcon)
-                <x-dynamic-component :component="$buttonIcon['icon-component']" x-show="selected === '{{ $buttonIcon['token'] }}'"/>
+                <x-dynamic-component x-cloak="{{ (bool) !$loop->first }}" :component="$buttonIcon['icon-component']" x-show="selected === '{{ $buttonIcon['token'] }}'"/>
             @endforeach
         </x-livewire-tiptap::button>
 

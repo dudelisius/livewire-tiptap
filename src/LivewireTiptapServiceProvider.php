@@ -37,5 +37,8 @@ class LivewireTiptapServiceProvider extends PackageServiceProvider
             'Dudelisius\\LivewireTiptap\\View\\Components',
             'livewire-tiptap'
         );
+
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'livewire-tiptap');
+        $this->publishes([__DIR__ . '/../resources/lang' => resource_path('lang/vendor/livewire-tiptap')], 'livewire-tiptap-translations');
     }
 }

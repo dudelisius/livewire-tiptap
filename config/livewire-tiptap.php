@@ -10,7 +10,7 @@ return [
      * Define the default toolbar buttons and groups. Use `|` to separate groups
      * and `~` to insert a flexible spacer between button sets.
      */
-    'toolbar' => '[paragraph heading-1 heading-2 heading-3 heading-4 heading-5 heading-6] | bold italic underline strike | bulletList orderedList | subscript superscript |  code highlight | link unlink ~ undo redo',
+    'toolbar' => '[paragraph heading-1 heading-2 heading-3 heading-4 heading-5 heading-6] | bold italic underline strike | bulletList orderedList | subscript superscript | code highlight | link unlink ~ undo redo',
 
     /**
      * --------------------------------------------------------------------------
@@ -58,103 +58,78 @@ return [
     'buttons' => [
         'paragraph' => [
             'icon' => 'tabler-letter-t',
-            'label' => 'Paragraph',
         ],
         'heading-1' => [
             'icon' => 'tabler-h-1',
-            'label' => 'Heading 1',
         ],
         'heading-2' => [
             'icon' => 'tabler-h-2',
-            'label' => 'Heading 2',
         ],
         'heading-3' => [
             'icon' => 'tabler-h-3',
-            'label' => 'Heading 3',
         ],
         'heading-4' => [
             'icon' => 'tabler-h-4',
-            'label' => 'Heading 4',
         ],
         'heading-5' => [
             'icon' => 'tabler-h-5',
-            'label' => 'Heading 5',
         ],
         'heading-6' => [
             'icon' => 'tabler-h-6',
-            'label' => 'Heading 6',
         ],
         'bold' => [
             'icon' => 'tabler-bold',
-            'label' => 'Bold',
         ],
         'italic' => [
             'icon' => 'tabler-italic',
-            'label' => 'Italic',
         ],
         'strike' => [
             'icon' => 'tabler-strikethrough',
-            'label' => 'Strikethrough',
         ],
         'underline' => [
             'icon' => 'tabler-underline',
-            'label' => 'Underline',
         ],
         'bulletList' => [
             'icon' => 'tabler-list',
-            'label' => 'Bullet list',
         ],
         'orderedList' => [
             'icon' => 'tabler-list-numbers',
-            'label' => 'Ordered list',
         ],
         'subscript' => [
             'icon' => 'tabler-subscript',
-            'label' => 'Subscript',
         ],
         'superscript' => [
             'icon' => 'tabler-superscript',
-            'label' => 'Superscript',
         ],
         'link' => [
             'icon' => 'tabler-link',
-            'label' => 'Link',
         ],
         'unlink' => [
             'icon' => 'tabler-link-off',
-            'label' => 'Unlink',
         ],
         'code' => [
             'icon' => 'tabler-code',
-            'label' => 'Code',
         ],
         'highlight' => [
             'icon' => 'tabler-highlight',
-            'label' => 'Highlight',
         ],
         'undo' => [
             'icon' => 'tabler-arrow-back-up',
-            'label' => 'Undo',
         ],
         'redo' => [
             'icon' => 'tabler-arrow-forward-up',
-            'label' => 'Redo',
         ],
         'blockquote' => [
             'icon' => 'tabler-quote',
-            'label' => 'Blockquote',
         ],
         'bullet-list' => [
             'icon' => 'tabler-list-bulleted',
-            'label' => 'Bullet List',
         ],
         'ordered-list' => [
             'icon' => 'tabler-list-numbers',
-            'label' => 'Ordered List',
         ],
         'horizontal-rule' => [
             'icon' => 'tabler-minus',
-            'label' => 'Horizontal Rule',
         ],
     ],
 
