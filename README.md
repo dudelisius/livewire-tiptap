@@ -154,13 +154,30 @@ Or edit them in your published config:
 ### Supported Extensions
 
 * paragraph
-* heading-1, heading-2, heading-3, heading-4, heading-5, heading-6
-* bold, italic, underline, strike
-* code, highlight
-* bulletList, orderedList
-* subscript, superscript
-* [link](https://tiptap.dev/docs/extensions/marks/link), unlink
-* undo, redo
+* heading-1
+* heading-2
+* heading-3
+* heading-4
+* heading-5
+* heading-6
+* bold
+* italic
+* underline
+* strike
+* blockquotes
+* code
+* highlight
+* hardBreak
+* horizontalRule
+* bulletList
+* orderedList
+* subscript
+* superscript
+* emojis
+* [link](https://tiptap.dev/docs/extensions/marks/link)
+* unlink
+* undo
+* red
 
 More coming soon!
 

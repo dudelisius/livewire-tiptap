@@ -112,19 +112,22 @@ it('render returns view with toolbarButtons, extensionsConfig, extensionsJsLiter
     ]);
 });
 
-it('mapTokenToButton maps paragraph correctly', function () {
-    $btn = (new Editor('paragraph'))->toolbarButtons[0];
+dataset('tokenActions', [
+    'paragraph' => ['paragraph', 'setParagraph'],
+    'link' => ['link', 'setLink'],
+    'unlink' => ['unlink', 'unsetLink'],
+    'hardBreak' => ['hardBreak', 'setHardBreak'],
+    'horizontalRule' => ['horizontalRule', 'setHorizontalRule'],
+    'undo' => ['undo', 'undo'],
+    'redo' => ['redo', 'redo'],
+]);
 
-    expect($btn)->toMatchArray([
-        'type' => 'button',
-        'token' => 'paragraph',
-        'action' => 'setParagraph',
-        'icon-component' => 'tabler-letter-t',
-        'active' => 'paragraph',
-        'options' => [],
-        'label' => 'livewire-tiptap::buttons.paragraph',
-    ]);
-});
+it('maps tokens to the correct action', function (string $token, string $expectedAction) {
+    $editor = new Editor($token);
+    $btn = $editor->toolbarButtons[0];
+
+    expect($btn['action'])->toBe($expectedAction);
+})->with('tokenActions');
 
 it('parseToolbarButtons handles a standalone dropdown group', function () {
     Config::set('livewire-tiptap.toolbar', '[a b c]');

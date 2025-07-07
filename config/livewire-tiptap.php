@@ -10,7 +10,7 @@ return [
      * Define the default toolbar buttons and groups. Use `|` to separate groups,
      * `~` to insert a flexible spacer between button sets and `[...]` to create dropdowns.
      */
-    'toolbar' => '[paragraph heading-1 heading-2 heading-3 heading-4 heading-5 heading-6] | bold italic underline strike | bulletList orderedList | subscript superscript | code highlight | link unlink ~ undo redo',
+    'toolbar' => '[paragraph heading-1 heading-2 heading-3 heading-4 heading-5 heading-6] | bold italic underline strike | bulletList orderedList | subscript superscript | blockquote code highlight hardBreak horizontalRule |  link unlink ~ undo redo',
 
     /**
      * --------------------------------------------------------------------------
@@ -31,7 +31,7 @@ return [
      */
     'classes' => [
         'livewire-tiptap-wrapper' => 'w-full border border-zinc-300 rounded-md outline-none bg-transparent disabled:cursor-not-allowed focus-within:outline-none overflow-hidden focus-within:border-blue-400 transition',
-        'livewire-tiptap-editor' => 'text-zinc-600 p-3 focus:!outline-none [&_ul]:list-disc [&_ol]:list-decimal [&_ul,&_ol]:list-inside [&_li>p]:inline-block',
+        'livewire-tiptap-editor' => 'text-zinc-600 p-3 focus:!outline-none',
         'livewire-tiptap-toolbar-parent' => 'border-b border-zinc-300 no-scrollbar',
         'livewire-tiptap-toolbar' => 'flex gap-1 p-1 items-center',
         'livewire-tiptap-toolbar-border' => 'h-4 border-0 bg-zinc-300 w-px mx-1',
@@ -89,12 +89,6 @@ return [
         'underline' => [
             'icon' => 'tabler-underline',
         ],
-        'bulletList' => [
-            'icon' => 'tabler-list',
-        ],
-        'orderedList' => [
-            'icon' => 'tabler-list-numbers',
-        ],
         'subscript' => [
             'icon' => 'tabler-subscript',
         ],
@@ -106,6 +100,9 @@ return [
         ],
         'unlink' => [
             'icon' => 'tabler-link-off',
+        ],
+        'blockquote' => [
+            'icon' => 'tabler-blockquote',
         ],
         'code' => [
             'icon' => 'tabler-code',
@@ -119,17 +116,17 @@ return [
         'redo' => [
             'icon' => 'tabler-arrow-forward-up',
         ],
-        'blockquote' => [
-            'icon' => 'tabler-quote',
+        'bulletList' => [
+            'icon' => 'tabler-list',
         ],
-        'bullet-list' => [
-            'icon' => 'tabler-list-bulleted',
-        ],
-        'ordered-list' => [
+        'orderedList' => [
             'icon' => 'tabler-list-numbers',
         ],
-        'horizontal-rule' => [
+        'horizontalRule' => [
             'icon' => 'tabler-minus',
+        ],
+        'hardBreak' => [
+            'icon' => 'tabler-page-break',
         ],
     ],
 
@@ -164,6 +161,9 @@ return [
             'shouldAutoLink' => "(url) => url.startsWith('https://')",
             // Deprecated validate option (optional)
             'validate' => null,
+        ],
+        'emoji' => [
+            'enableEmoticons' => true,
         ],
     ],
 ];

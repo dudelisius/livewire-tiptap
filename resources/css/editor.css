@@ -38,6 +38,36 @@ a {
     @apply text-blue-500 underline cursor-pointer;
 }
 
+ul, ol {
+    @apply list-inside;
+}
+
+li p,
+blockquote p {
+    @apply inline-block m-0;
+}
+
+ul {
+    @apply list-disc;
+}
+
+ol {
+    @apply list-decimal
+}
+
+blockquote {
+    @apply py-1 pl-4 my-6 italic font-medium border-l-4 border-zinc-200;
+
+    &::before,
+    &::after {
+        content: "“";
+    }
+}
+
+hr {
+    @apply my-6 border-t border-zinc-300;
+}
+
 @utility no-scrollbar {
     @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 }
