@@ -9,7 +9,9 @@ Easily integrate the Tiptap rich-text editor into your Laravel Livewire projects
 
 ---
 
-## 📋 Requirements
+## 📋 Prerequisites
+
+Livewire Tiptap requires the following before installing:
 
 * **PHP** ≥ 8.3
 * **Laravel** ≥ 11.x
@@ -20,10 +22,10 @@ Easily integrate the Tiptap rich-text editor into your Laravel Livewire projects
 ## 🚀 Installation
 
 ```bash
-composer require dudelisius/livewire-tiptap:"0.1.0-alpha.2"
+composer require dudelisius/livewire-tiptap:"0.1.0-alpha.3"
 ```
 
-Then publish the assets, views, and config:
+Optional; publish the assets, views, and config:
 
 ```bash
 php artisan vendor:publish --tag=livewire-tiptap-config
@@ -42,7 +44,7 @@ All settings live in `config/livewire-tiptap.php`. The defaults are opinionated 
 * **`classes`**: define your own class names or target elements via fallback keys.
 * **`icons`**: map tokens to Blade component aliases (Tabler, Heroicons, or your own SVG).
 * **`buttons`**: configure per-button icon, label, etc.
-* **`extensions`**: pass through Tiptap extension options (e.g. Link). See the [Link docs](https://tiptap.dev/docs/extensions/marks/link).
+* **`extensions`**: pass through Tiptap extension options (e.g. Link). See for example the [Tiptap Link docs](https://tiptap.dev/docs/extensions/marks/link).
 
 ---
 
@@ -133,7 +135,7 @@ Pass extension options at render time:
 <livewire-tiptap:editor
    wire:model="content"
    :extensions="[
-       'link' => ['openOnClick' => false],
+       'link' => ['autolink' => false],
    ]"
 />
 ```
@@ -157,7 +159,7 @@ Or edit them in your published config:
 * code, highlight
 * bulletList, orderedList
 * subscript, superscript
-* link, unlink
+* [link](https://tiptap.dev/docs/extensions/marks/link), unlink
 * undo, redo
 
 More coming soon!
