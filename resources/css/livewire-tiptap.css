@@ -1,71 +1,110 @@
-@import "tailwindcss";
+@reference "tailwindcss";
 @source "../views";
 
+@custom-variant dark (&:where(.dark, .dark *));
 
-h1 {
-    @apply mb-4 text-4xl font-bold;
+@theme {
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
 }
 
-h2 {
-    @apply mb-4 text-3xl font-bold;
-}
+.livewire-tiptap-editor {
+    @apply space-y-4;
 
-h3 {
-    @apply mb-4 text-2xl font-bold;
-}
+    h1 {
+        @apply text-4xl font-bold;
+    }
 
-h4 {
-    @apply mb-4 text-xl font-bold;
-}
+    h2 {
+        @apply text-3xl font-bold;
+    }
 
-h5 {
-    @apply mb-4 text-lg font-bold;
-}
+    h3 {
+        @apply text-2xl font-bold;
+    }
 
-h6 {
-    @apply mb-4 text-base font-bold;
-}
+    h4 {
+        @apply text-xl font-bold;
+    }
 
-p {
-    @apply mb-4 text-base;
-}
+    h5 {
+        @apply text-lg font-bold;
+    }
 
-mark {
-    @apply px-1 py-0.5;
-}
+    h6 {
+        @apply text-base font-bold;
+    }
 
-a {
-    @apply text-blue-500 underline cursor-pointer;
-}
+    p {
+        @apply text-base sm:text-sm;
+    }
 
-ul, ol {
-    @apply list-inside;
-}
+    mark {
+        @apply px-1 py-0.5;
+    }
 
-li p,
-blockquote p {
-    @apply inline-block m-0;
-}
+    a {
+        @apply underline;
+        color: var(--color-accent);
+    }
 
-ul {
-    @apply list-disc;
-}
+    ul,
+    ol {
+        @apply list-inside;
+    }
 
-ol {
-    @apply list-decimal
-}
+    ul {
+        @apply list-disc;
+    }
 
-blockquote {
-    @apply py-1 pl-4 my-6 italic font-medium border-l-4 border-zinc-200;
+    ol {
+        @apply list-decimal;
+    }
 
-    &::before,
-    &::after {
+    blockquote {
+        @apply py-1 pl-4 my-6 italic font-medium border-l-4;
+        border-color: var(--border-color);
+    }
+
+    li p,
+    blockquote p {
+        @apply inline-block m-0;
+    }
+
+    blockquote::before,
+    blockquote::after {
         content: "“";
+    }
+
+    hr {
+        @apply my-6 border-t;
+        border-color: var(--border-color);
     }
 }
 
-hr {
-    @apply my-6 border-t border-zinc-300;
+label.livewire-tiptap-label {
+    @apply items-center text-sm font-medium text-zinc-800 dark:text-white flex mb-2;
+}
+
+.livewire-tiptap-wrapper {
+    @apply w-full border rounded-lg block disabled:shadow-none dark:shadow-none appearance-none text-base sm:text-sm leading-[1.375rem] bg-white dark:bg-white/10 dark:disabled:bg-white/[7%] text-zinc-700 disabled:text-zinc-500 placeholder-zinc-400 disabled:placeholder-zinc-400/70 dark:text-zinc-300 dark:disabled:text-zinc-400 dark:placeholder-zinc-400 dark:disabled:placeholder-zinc-500 shadow-xs border-zinc-200 border-b-zinc-300/80 disabled:border-b-zinc-200 dark:border-white/10 dark:disabled:border-white/5 data-invalid:shadow-none data-invalid:border-red-500 dark:data-invalid:border-red-500 disabled:data-invalid:border-red-500 dark:disabled:data-invalid:border-red-500 focus-within:outline-hidden focus-within:ring-2 focus-within:ring-accent focus-within:ring-offset-2 focus-within:ring-offset-accent-foreground;
+
+    .livewire-tiptap-toolbar {
+        @apply flex flex-wrap items-center gap-1 p-2 border-b;
+    }
+
+    .livewire-tiptap-editor {
+        @apply py-2 leading-[1.375rem] ps-3 pe-3;
+
+        p.is-editor-empty:first-child::before {
+            color: #adb5bd;
+            content: attr(data-placeholder);
+            float: left;
+            height: 0;
+            pointer-events: none;
+            @apply text-zinc-400 disabled:text-zinc-400/70 dark:text-zinc-400 dark:disabled:text-zinc-500;
+        }
+    }
 }
 
 @utility no-scrollbar {

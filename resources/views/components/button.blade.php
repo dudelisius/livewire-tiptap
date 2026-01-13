@@ -1,12 +1,7 @@
 @props([
   'button' => null,
-  'classes' => [],
   'showLabel' => false,
-  'toolbarButton' => $classes['toolbar-button'],
-  'toolbarButtonActive' => $classes['toolbar-button-active'],
 ])
-
-@dump($showLabel)
 
 <button
     type="button"
@@ -15,9 +10,9 @@
         @click="{{ $button['action'] }}({{ json_encode($button['options']) }})"
     @endif
     @if (isset($button['active']))
-        x-bind:class="{ '{{ $toolbarButtonActive }}' : isActive('{{ $button['active'] }}', @js($button['options']), updatedAt) }"
+        x-bind:class="{ 'livewire-tiptap-toolbar-button-active' : isActive('{{ $button['active'] }}', @js($button['options']), updatedAt) }"
     @endif
-    class="{{ $toolbarButton }}"
+    class="livewire-tiptap-toolbar-button"
 >
     @if ($slot->isNotEmpty())
         {{ $slot }}
@@ -26,7 +21,7 @@
             <x-dynamic-component :component="$button['icon-component']" class="shrink-0" />
         @endif
 
-        @if (isset($button['label']) && $showLabel)
+        @if ($showLabel && isset($button['label']))
             {{ __($button['label']) }}
         @endif
     @endif

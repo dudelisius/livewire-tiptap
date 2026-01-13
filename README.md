@@ -214,14 +214,16 @@ composer qa
 * [ ] Add align button
 * [ ] Add YouTube button
 * [ ] Add embed button
-* [ ] Add details button
+* [ ] Add details/summary button
 * [ ] Add chevron to dropdowns
+* [ ] Add label option
 * [ ] Add options for custom labels from config
-* [ ] Add option to disable texts in dropdowns (and add that info to the readme)
-* [ ] Add ability to add buttons in the editor slot
+* [ ] Add option to disable texts in dropdowns
 * [ ] Improve readme on how to set the language
+* [ ] Add an option for setting placeholders
 * [x] Add option to override the editor class from calling the editor
 * [ ] Auto show scroll arrows on narrow screens
+* [x] Fix css compiling and make sure it does not conflict with existing tailwind in projects
 * [ ] Flux styling
 * [ ] Improved documentation & examples
 * [ ] First stable (1.0) release

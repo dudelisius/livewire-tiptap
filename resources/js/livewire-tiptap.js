@@ -8,6 +8,8 @@ import Link from '@tiptap/extension-link';
 import Underline from '@tiptap/extension-underline';
 import Emoji from '@tiptap/extension-emoji';
 import TextAlign from '@tiptap/extension-text-align'
+import { Placeholder } from '@tiptap/extensions'
+
 // import Table from '@tiptap/extension-table'
 // import TableCell from '@tiptap/extension-table-cell'
 // import TableHeader from '@tiptap/extension-table-header'
@@ -39,6 +41,7 @@ document.addEventListener('alpine:init', () => {
                         Link.configure(extensionConfig.link),
                         Emoji.configure(extensionConfig.emoji),
                         TextAlign.configure(extensionConfig.textAlign),
+                        Placeholder.configure(extensionConfig.placeholder),
                     ],
                     onCreate({ editor }) {
                         _this.updatedAt = Date.now()
@@ -124,11 +127,7 @@ document.addEventListener('alpine:init', () => {
             unsetLink() {
                 editor.chain().focus().unsetLink().run();
             },
-            toggleAlignLeft() {
-                this.setTextAlign('left');
-            },
             setTextAlign(align) {
-                console.log(align)
                 editor.chain().focus().setTextAlign(align).run()
             },
             undo() {

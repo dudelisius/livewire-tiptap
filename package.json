@@ -14,13 +14,14 @@
         "@tiptap/extension-text-align": "^3.15.3",
         "@tiptap/extension-underline": "^2.27.2",
         "@tiptap/extension-youtube": "^2.27.2",
+        "@tiptap/extensions": "^3.15.3",
         "@tiptap/starter-kit": "^2.27.2",
         "alpinejs": "^3.15.3",
         "tailwindcss": "^4.1.18",
         "tippy.js": "^6.3.7"
     },
     "scripts": {
-        "build:css": "tailwindcss -i resources/css/livewire-tiptap.css -o resources/dist/css/livewire-tiptap.css --minify --config tailwind.config.ts",
+        "build:css": "tailwindcss -i resources/css/livewire-tiptap.css -o resources/dist/css/livewire-tiptap.css --minify",
         "build:js": "esbuild resources/js/livewire-tiptap.js --bundle --minify --outfile=resources/dist/js/livewire-tiptap.js",
         "build": "npm run build:css && npm run build:js"
     },

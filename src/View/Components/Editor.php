@@ -24,7 +24,7 @@ class Editor extends Component
         $this->extensionsConfig = $this->getExtensionsConfig($extensions);
         $this->extensionsJsLiteral = base64_encode(json_encode($this->toJsObjectLiteral($this->extensionsConfig)));
 
-        $this->compileClasses();
+        $this->classes = array_flip(config('livewire-tiptap.classes'));
     }
 
     #[Override]
@@ -78,7 +78,9 @@ class Editor extends Component
 
         $inner = implode(',', $pieces);
 
-        return $isAssoc ? '{' . $inner . '}' : '[' . $inner . ']';
+        return $isAssoc
+            ? '{' . $inner . '}'
+            : '[' . $inner . ']';
     }
 
     protected function parseToolbarButtons(string $raw): array
@@ -138,6 +140,9 @@ class Editor extends Component
             'unlink' => 'unsetLink',
             'hardBreak' => 'setHardBreak',
             'horizontalRule' => 'setHorizontalRule',
+            'leftAlign' => 'setTextAlign("left")',
+            'centerAlign' => 'setTextAlign("center")',
+            'rightAlign' => 'setTextAlign("right")',
             'undo', 'redo' => $name,
             default => 'toggle' . ucfirst($name),
         };
@@ -151,47 +156,5 @@ class Editor extends Component
             'options' => $options,
             'label' => 'livewire-tiptap::buttons.' . $token,
         ];
-    }
-
-    protected function compileClasses(): void
-    {
-        $useDefault = config('livewire-tiptap.use_default_classes', true);
-        $config = config('livewire-tiptap.classes', []);
-
-        $fallbacks = [
-            'livewire-tiptap-wrapper',
-            'livewire-tiptap-editor',
-            'livewire-tiptap-toolbar-parent',
-            'livewire-tiptap-toolbar',
-            'livewire-tiptap-toolbar-border',
-            'livewire-tiptap-toolbar-spacer',
-            'livewire-tiptap-toolbar-button',
-            'livewire-tiptap-toolbar-button-active',
-            'livewire-tiptap-toolbar-dropdown-wrapper',
-            'livewire-tiptap-toolbar-dropdown',
-            'livewire-tiptap-toolbar-dropdown-button',
-            'livewire-tiptap-toolbar-dropdown-button-active',
-            'livewire-tiptap-toolbar-dropdown-menu',
-            'livewire-tiptap-toolbar-dropdown-button',
-            'livewire-tiptap-toolbar-dropdown-button-active',
-        ];
-
-        $this->classes = [];
-
-        foreach ($fallbacks as $key) {
-            $property = $this->buildProperty($key);
-            $val = ($useDefault && ! empty(trim((string) ($config[$key] ?? ''))))
-                ? $config[$key]
-                : $key;
-
-            $this->classes[$property] = $val;
-        }
-    }
-
-    protected function buildProperty(string $key): string
-    {
-        $prop = preg_replace('/^livewire-tiptap-/', '', $key);
-
-        return $prop;
     }
 }
