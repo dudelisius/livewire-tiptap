@@ -10,7 +10,10 @@
 <div
     x-data="livewireTiptap({{ $entangle }}, $wire, '{{ $extensionsJsLiteral }}')"
     wire:ignore
-    class="{{ $classes['wrapper'] }}"
+    @class([
+        $classes['wrapper'],
+        $attributes->get('class'),
+    ])
 >
     <div class="{{ $classes['toolbar-parent'] }}">
         <div id="livewire-tiptap-toolbar" class="{{ $classes['toolbar'] }}">

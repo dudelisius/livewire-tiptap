@@ -1,29 +1,30 @@
 {
     "dependencies": {
-        "@tailwindcss/cli": "^4.1.10",
-        "@tailwindcss/vite": "^4.1.10",
-        "@tiptap/core": "^2.22.3",
-        "@tiptap/extension-blockquote": "^2.25.0",
-        "@tiptap/extension-emoji": "^2.25.0",
-        "@tiptap/extension-hard-break": "^2.25.0",
-        "@tiptap/extension-highlight": "^2.22.3",
-        "@tiptap/extension-horizontal-rule": "^2.25.0",
-        "@tiptap/extension-link": "^2.22.3",
-        "@tiptap/extension-subscript": "^2.24.0",
-        "@tiptap/extension-superscript": "^2.24.0",
-        "@tiptap/extension-underline": "^2.22.3",
-        "@tiptap/extension-youtube": "^2.25.0",
-        "@tiptap/starter-kit": "^2.22.3",
-        "alpinejs": "^3.14.9",
-        "tailwindcss": "^4.1.10",
+        "@tailwindcss/cli": "^4.1.18",
+        "@tailwindcss/vite": "^4.1.18",
+        "@tiptap/core": "^2.27.2",
+        "@tiptap/extension-blockquote": "^2.27.2",
+        "@tiptap/extension-emoji": "^2.27.2",
+        "@tiptap/extension-hard-break": "^2.27.2",
+        "@tiptap/extension-highlight": "^2.27.2",
+        "@tiptap/extension-horizontal-rule": "^2.27.2",
+        "@tiptap/extension-link": "^2.27.2",
+        "@tiptap/extension-subscript": "^2.27.2",
+        "@tiptap/extension-superscript": "^2.27.2",
+        "@tiptap/extension-text-align": "^3.15.3",
+        "@tiptap/extension-underline": "^2.27.2",
+        "@tiptap/extension-youtube": "^2.27.2",
+        "@tiptap/starter-kit": "^2.27.2",
+        "alpinejs": "^3.15.3",
+        "tailwindcss": "^4.1.18",
         "tippy.js": "^6.3.7"
     },
     "scripts": {
-        "build:css": "tailwindcss -i resources/css/editor.css -o resources/dist/css/editor.css --minify --config tailwind.config.ts",
-        "build:js": "esbuild resources/js/editor.js --bundle --minify --outfile=resources/dist/js/editor.js",
+        "build:css": "tailwindcss -i resources/css/livewire-tiptap.css -o resources/dist/css/livewire-tiptap.css --minify --config tailwind.config.ts",
+        "build:js": "esbuild resources/js/livewire-tiptap.js --bundle --minify --outfile=resources/dist/js/livewire-tiptap.js",
         "build": "npm run build:css && npm run build:js"
     },
     "devDependencies": {
-        "esbuild": "^0.25.5"
+        "esbuild": "^0.25.12"
     }
 }

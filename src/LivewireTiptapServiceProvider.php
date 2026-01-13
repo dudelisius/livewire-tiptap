@@ -26,11 +26,11 @@ class LivewireTiptapServiceProvider extends PackageServiceProvider
     public function bootingPackage(): void
     {
         Blade::directive('livewireTiptapStyles', function () {
-            return "<?php echo '<link rel=\"stylesheet\" href=\"' . asset('vendor/livewire-tiptap/css/editor.css') . '\">'; ?>";
+            return "<?php echo '<link rel=\"stylesheet\" href=\"' . asset('vendor/livewire-tiptap/css/livewire-tiptap.css') . '\">'; ?>";
         });
 
         Blade::directive('livewireTiptapScripts', function () {
-            return "<?php echo '<script src=\"' . asset('vendor/livewire-tiptap/js/editor.js') . '\"></script>'; ?>";
+            return "<?php echo '<script src=\"' . asset('vendor/livewire-tiptap/js/livewire-tiptap.js') . '\"></script>'; ?>";
         });
 
         Blade::componentNamespace(

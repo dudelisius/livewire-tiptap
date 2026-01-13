@@ -11,7 +11,7 @@ it('registers @livewireTiptapStyles directive', function () {
 
     $rendered = $directives['livewireTiptapStyles']();
     expect($rendered)->toContain('<link rel="stylesheet"');
-    expect($rendered)->toContain("asset('vendor/livewire-tiptap/css/editor.css')");
+    expect($rendered)->toContain("asset('vendor/livewire-tiptap/css/livewire-tiptap.css')");
 });
 
 it('registers @livewireTiptapScripts directive', function () {
@@ -21,7 +21,7 @@ it('registers @livewireTiptapScripts directive', function () {
 
     $rendered = $directives['livewireTiptapScripts']();
     expect($rendered)->toContain('<script src="');
-    expect($rendered)->toContain("asset('vendor/livewire-tiptap/js/editor.js')");
+    expect($rendered)->toContain("asset('vendor/livewire-tiptap/js/livewire-tiptap.js')");
 });
 
 it('binds the correct component namespace', function () {

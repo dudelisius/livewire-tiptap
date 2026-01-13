@@ -62,7 +62,7 @@
                 <x-livewire-tiptap::button
                     :$button
                     :$classes
-                    :showLabel="true"
+                    :showLabel="$button['showLabel'] ?? false"
                     :toolbarButton="$classes['toolbar-dropdown-button']"
                     :toolbarButtonActive="$classes['toolbar-dropdown-button-active']"
                 />

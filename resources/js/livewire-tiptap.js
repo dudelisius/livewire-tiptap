@@ -1,3 +1,4 @@
+
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Subscript from '@tiptap/extension-subscript';
@@ -6,8 +7,12 @@ import Highlight from '@tiptap/extension-highlight';
 import Link from '@tiptap/extension-link';
 import Underline from '@tiptap/extension-underline';
 import Emoji from '@tiptap/extension-emoji';
-import HardBreak from '@tiptap/extension-hard-break';
-import HorizontalRule from '@tiptap/extension-horizontal-rule';
+import TextAlign from '@tiptap/extension-text-align'
+// import Table from '@tiptap/extension-table'
+// import TableCell from '@tiptap/extension-table-cell'
+// import TableHeader from '@tiptap/extension-table-header'
+// import TableRow from '@tiptap/extension-table-row'
+// import BubbleMenu from '@tiptap/extension-bubble-menu'
 
 document.addEventListener('alpine:init', () => {
     Alpine.data('livewireTiptap', (content, livewireComponent, b64) => {
@@ -31,10 +36,9 @@ document.addEventListener('alpine:init', () => {
                         Superscript,
                         Highlight,
                         Underline,
-                        HardBreak,
-                        HorizontalRule,
                         Link.configure(extensionConfig.link),
                         Emoji.configure(extensionConfig.emoji),
+                        TextAlign.configure(extensionConfig.textAlign),
                     ],
                     onCreate({ editor }) {
                         _this.updatedAt = Date.now()
@@ -84,11 +88,9 @@ document.addEventListener('alpine:init', () => {
                 editor.chain().focus().toggleUnderline().run()
             },
             toggleBulletList() {
-                console.log('toggle bullet list')
                 editor.chain().focus().toggleBulletList().run();
             },
             toggleOrderedList() {
-                console.log('toggle ordered list')
                 editor.chain().focus().toggleOrderedList().run();
             },
             toggleSubscript() {
@@ -122,7 +124,11 @@ document.addEventListener('alpine:init', () => {
             unsetLink() {
                 editor.chain().focus().unsetLink().run();
             },
+            toggleAlignLeft() {
+                this.setTextAlign('left');
+            },
             setTextAlign(align) {
+                console.log(align)
                 editor.chain().focus().setTextAlign(align).run()
             },
             undo() {

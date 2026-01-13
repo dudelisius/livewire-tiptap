@@ -10,7 +10,7 @@ return [
      * Define the default toolbar buttons and groups. Use `|` to separate groups,
      * `~` to insert a flexible spacer between button sets and `[...]` to create dropdowns.
      */
-    'toolbar' => '[paragraph heading-1 heading-2 heading-3 heading-4 heading-5 heading-6] | bold italic underline strike | bulletList orderedList | subscript superscript | blockquote code highlight hardBreak horizontalRule |  link unlink ~ undo redo',
+    'toolbar' => '[paragraph heading-1 heading-2 heading-3 heading-4 heading-5 heading-6] | bold italic underline strike | [alignLeft alignCenter alignRight] | bulletList orderedList | subscript superscript | blockquote code highlight hardBreak horizontalRule |  link unlink ~ undo redo',
 
     /**
      * --------------------------------------------------------------------------
@@ -30,19 +30,19 @@ return [
      * are still applied so you can target elements in your own CSS.
      */
     'classes' => [
-        'livewire-tiptap-wrapper' => 'w-full border border-zinc-300 rounded-md outline-none bg-transparent disabled:cursor-not-allowed focus-within:outline-none overflow-hidden focus-within:border-blue-400 transition',
-        'livewire-tiptap-editor' => 'text-zinc-600 p-3 focus:!outline-none',
-        'livewire-tiptap-toolbar-parent' => 'border-b border-zinc-300 no-scrollbar',
+        'livewire-tiptap-wrapper' => 'w-full border border-zinc-200 rounded-lg outline-none disabled:cursor-not-allowed focus-within:outline-none overflow-hidden focus-within:border-sky-400',
+        'livewire-tiptap-editor' => 'text-zinc-700 ps-3 pe-3 py-2 focus:!outline-none',
+        'livewire-tiptap-toolbar-parent' => 'border-b border-zinc-200 no-scrollbar',
         'livewire-tiptap-toolbar' => 'flex gap-1 p-1 items-center',
-        'livewire-tiptap-toolbar-border' => 'h-4 border-0 bg-zinc-300 w-px mx-1',
+        'livewire-tiptap-toolbar-border' => 'h-4 border-0 bg-zinc-200 w-px mx-1',
         'livewire-tiptap-toolbar-spacer' => 'flex-1',
-        'livewire-tiptap-toolbar-button' => 'flex items-center p-1.5 font-medium text-center transition rounded outline-none cursor-pointer text-zinc-400 focus:outline-none hover:text-blue-500 hover:bg-blue-100 [&_svg]:size-5',
-        'livewire-tiptap-toolbar-button-active' => 'bg-blue-100 !text-blue-500 [&_svg]:!text-blue-400',
+        'livewire-tiptap-toolbar-button' => 'flex items-center p-1.5 font-medium text-center transition rounded outline-none cursor-pointer text-zinc-500 focus:outline-none hover:text-sky-500 hover:bg-sky-100 [&_svg]:size-5',
+        'livewire-tiptap-toolbar-button-active' => 'bg-sky-100 !text-sky-500 [&_svg]:!text-sky-400',
         'livewire-tiptap-toolbar-dropdown-wrapper' => 'flex justify-center',
         'livewire-tiptap-toolbar-dropdown' => 'relative',
-        'livewire-tiptap-toolbar-dropdown-menu' => 'absolute left-0 min-w-42 rounded-lg shadow-sm z-10 origin-top-left bg-white p-1 outline-none border border-zinc-200 z-[999]',
-        'livewire-tiptap-toolbar-dropdown-button' => 'flex items-center gap-3 p-1.5 font-medium text-center transition rounded outline-none cursor-pointer text-zinc-500 focus:outline-none hover:text-blue-500 hover:bg-blue-100 w-full [&_svg]:size-5 [&_svg]:text-zinc-400 hover:[&_svg]:!text-blue-400',
-        'livewire-tiptap-toolbar-dropdown-button-active' => 'bg-blue-100 !text-blue-500 [&_svg]:!text-blue-400',
+        'livewire-tiptap-toolbar-dropdown-menu' => 'absolute left-0 min-w-42 rounded-lg shadow-sm origin-top-left bg-white p-1 outline-none border border-zinc-200 z-[999]',
+        'livewire-tiptap-toolbar-dropdown-button' => 'flex items-center gap-3 p-1.5 font-medium text-center transition rounded outline-none cursor-pointer text-zinc-500 focus:outline-none hover:text-sky-500 hover:bg-sky-100 w-full [&_svg]:size-5 [&_svg]:text-zinc-500 hover:[&_svg]:!text-sky-400',
+        'livewire-tiptap-toolbar-dropdown-button-active' => 'bg-sky-100 !text-sky-500 [&_svg]:!text-sky-400',
     ],
 
     /**
@@ -128,6 +128,17 @@ return [
         'hardBreak' => [
             'icon' => 'tabler-page-break',
         ],
+        'alignLeft' => [
+            'icon' => 'tabler-align-left',
+            'showLabel' => false
+        ],
+        'alignCenter' => [
+            'icon' => 'tabler-align-center',
+            'label' => 'customAlignLabelCenter',
+        ],
+        'alignRight' => [
+            'icon' => 'tabler-align-right',
+        ]
     ],
 
     /**
@@ -136,7 +147,6 @@ return [
      * --------------------------------------------------------------------------
      * Default settings for Tiptap extensions. Override via the `:extensions`
      * attribute on the Blade component or by publishing this config.
-     * See full list of Link options: https://tiptap.dev/docs/extensions/marks/link
      */
     'extensions' => [
         'link' => [
@@ -164,6 +174,9 @@ return [
         ],
         'emoji' => [
             'enableEmoticons' => true,
+        ],
+        'textAlign' => [
+            'types' => ['heading', 'paragraph'],
         ],
     ],
 ];

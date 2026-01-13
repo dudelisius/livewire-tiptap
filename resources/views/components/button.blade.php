@@ -6,6 +6,8 @@
   'toolbarButtonActive' => $classes['toolbar-button-active'],
 ])
 
+@dump($showLabel)
+
 <button
     type="button"
     {{ $attributes->except('class') }}

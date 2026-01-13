@@ -210,5 +210,18 @@ composer qa
 * [ ] Image uploads & drag-drop support
 * [ ] Autosave & Ctrl+S handling
 * [ ] Bubble menus & tooltips
+* [ ] Sticky toolbar (optional)
+* [ ] Add align button
+* [ ] Add YouTube button
+* [ ] Add embed button
+* [ ] Add details button
+* [ ] Add chevron to dropdowns
+* [ ] Add options for custom labels from config
+* [ ] Add option to disable texts in dropdowns (and add that info to the readme)
+* [ ] Add ability to add buttons in the editor slot
+* [ ] Improve readme on how to set the language
+* [x] Add option to override the editor class from calling the editor
+* [ ] Auto show scroll arrows on narrow screens
+* [ ] Flux styling
 * [ ] Improved documentation & examples
 * [ ] First stable (1.0) release
