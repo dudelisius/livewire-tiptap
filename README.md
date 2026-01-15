@@ -50,16 +50,73 @@ All settings live in `config/livewire-tiptap.php`. The defaults are opinionated 
 
 ## 🎨 Usage
 
-Include the styles & scripts in your layout:
+This package is a Livewire component:
 
 ```blade
-@livewireTiptapStyles
+<livewire:tiptap wire:model="content" />
+```
+
+### Load the assets
+
+You need the package CSS + JS on pages that render the editor.
+
+#### Option A (recommended): publish assets and include via `<link>` + directive
+
+Publish the assets:
+
+```bash
+php artisan vendor:publish --tag=livewire-tiptap-assets
+```
+
+Then include them in your layout:
+
+```blade
 @livewireStyles
 
-<livewire-tiptap:editor wire:model="content" />
+<link rel="stylesheet" href="{{ asset('vendor/livewire-tiptap/css/livewire-tiptap.css') }}">
+
+<livewire:tiptap wire:model="content" />
 
 @livewireScripts
 @livewireTiptapScripts
+```
+
+#### Option B: import from `vendor/` via Vite
+
+In `resources/css/app.css`:
+
+```css
+@import "../../vendor/dudelisius/livewire-tiptap/resources/dist/css/livewire-tiptap.css";
+```
+
+In `resources/js/app.js`:
+
+```js
+import '../../vendor/dudelisius/livewire-tiptap/resources/dist/js/livewire-tiptap.js'
+```
+
+Make sure Alpine is loaded globally (the JS hooks into `alpine:init`).
+
+---
+
+## 🧑‍💻 Package Development (local watcher)
+
+If you're developing this package alongside a local Laravel app (for example a sibling folder `../pegasus`), you can run a watcher that automatically:
+
+1. Builds the package assets into `resources/dist`
+2. Publishes them into the Laravel app via `vendor:publish --tag=livewire-tiptap-assets --force`
+3. Clears caches via `optimize:clear`
+
+From the package root:
+
+```bash
+bun run dev
+```
+
+One-off sync (no watcher):
+
+```bash
+bun run sync:pegasus
 ```
 
 ---
@@ -106,7 +163,7 @@ The dropdown shows the first icon by default, and updates to reflect the active 
 Override the toolbar when rendering:
 
 ```blade
-<livewire-tiptap:editor
+<livewire:tiptap
     wire:model="content"
     toolbar="bold italic | link unlink | undo redo"
 />
@@ -132,7 +189,7 @@ If you prefer your own CSS, either customize each key or disable defaults:
 Pass extension options at render time:
 
 ```blade
-<livewire-tiptap:editor
+<livewire:tiptap
    wire:model="content"
    :extensions="[
        'link' => ['autolink' => false],
@@ -225,6 +282,9 @@ composer qa
 * [x] Add option to override the editor class from calling the editor
 * [ ] Auto show scroll arrows on narrow screens
 * [x] Fix css compiling and make sure it does not conflict with existing tailwind in projects
-* [ ] Flux styling
+* [x] Remove style blade directie and import via css file
+* [ ] Improve package setup and codebase
+* [ ] Flux styling as base
+* [ ] Make the view files publishable
 * [ ] Improved documentation & examples
 * [ ] First stable (1.0) release

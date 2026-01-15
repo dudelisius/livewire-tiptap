@@ -2,20 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Dudelisius\LivewireTiptap\View\Components;
+namespace Dudelisius\LivewireTiptap\Support;
 
-use Illuminate\View\Component;
-use Illuminate\View\View;
-use Override;
-
-/** @psalm-suppress UnusedClass */
-class Editor extends Component
+/**
+ * Pure config/toolbar computation for the TipTap editor.
+ *
+ * This is intentionally framework-light so it can be unit-tested easily.
+ */
+final class EditorConfig
 {
+    /** @var array<int, array<string, mixed>> */
     public array $toolbarButtons;
+
+    /** @var array<string, mixed> */
     public array $extensionsConfig;
+
     public string $extensionsJsLiteral;
+
+    /** @var array<string, string> */
     public array $classes;
 
+    /**
+     * @param array<string, mixed> $extensions
+     */
     public function __construct(?string $toolbar = null, array $extensions = [])
     {
         $rawToolbar = $this->getToolbarConfig($toolbar);
@@ -24,39 +33,32 @@ class Editor extends Component
         $this->extensionsConfig = $this->getExtensionsConfig($extensions);
         $this->extensionsJsLiteral = base64_encode($this->toJsObjectLiteral($this->extensionsConfig));
 
-        $this->classes = array_flip(config('livewire-tiptap.classes'));
+        $this->classes = $this->compileClasses();
     }
 
-    #[Override]
-    public function render(): View
+    public function getToolbarConfig(?string $override): string
     {
-        /** @var view-string */
-        $view = 'livewire-tiptap::components.editor';
-
-        return view($view, [
-            'toolbarButtons' => $this->toolbarButtons,
-            // 'extensionsConfig' => $this->extensionsConfig,
-            'extensionsJsLiteral' => $this->extensionsJsLiteral,
-            'classes' => $this->classes,
-        ]);
-    }
-
-    protected function getToolbarConfig(?string $override): string
-    {
-        $default = config('livewire-tiptap.toolbar');
+        $default = (string) config('livewire-tiptap.toolbar');
 
         return trim($override ?: $default);
     }
 
-    protected function getExtensionsConfig(?array $override): array
+    /**
+     * @param array<string, mixed>|null $override
+     * @return array<string, mixed>
+     */
+    public function getExtensionsConfig(?array $override): array
     {
+        /** @var array<string, mixed> $defaults */
         $defaults = config('livewire-tiptap.extensions', []);
-        $merged = array_replace_recursive($defaults, $override);
+
+        /** @var array<string, mixed> $merged */
+        $merged = array_replace_recursive($defaults, $override ?? []);
 
         return $merged ?: $defaults;
     }
 
-    protected function toJsObjectLiteral(mixed $value): string
+    public function toJsObjectLiteral(mixed $value): string
     {
         if (is_string($value) && preg_match('/^\s*(?:\(\s*[^\)]+\)|[A-Za-z_$][A-Za-z0-9_$]*)\s*=>/', $value)) {
             return $value;
@@ -83,7 +85,8 @@ class Editor extends Component
             : '[' . $inner . ']';
     }
 
-    protected function parseToolbarButtons(string $raw): array
+    /** @return array<int, array<string, mixed>> */
+    public function parseToolbarButtons(string $raw): array
     {
         $groups = [];
         $counter = 0;
@@ -116,7 +119,8 @@ class Editor extends Component
         }, $tokens);
     }
 
-    protected function mapTokenToButton(string $token): array
+    /** @return array<string, mixed> */
+    public function mapTokenToButton(string $token): array
     {
         if ($token === '|') {
             return ['type' => 'separator'];
@@ -156,5 +160,46 @@ class Editor extends Component
             'options' => $options,
             'label' => 'livewire-tiptap::buttons.' . $token,
         ];
+    }
+
+    /** @return array<string, string> */
+    public function compileClasses(): array
+    {
+        $useDefaults = (bool) config('livewire-tiptap.use_default_classes', true);
+        $configured = config('livewire-tiptap.classes', []);
+
+        // Accept both formats:
+        // - associative: ['livewire-tiptap-wrapper' => 'wrap']
+        // - list: ['livewire-tiptap-wrapper', ...]
+        if (is_array($configured) && array_keys($configured) === range(0, count($configured) - 1)) {
+            $configured = array_fill_keys($configured, null);
+        }
+
+        if (! is_array($configured)) {
+            $configured = [];
+        }
+
+        $out = [];
+
+        foreach ($configured as $className => $override) {
+            $className = (string) $className;
+            $key = str_starts_with($className, 'livewire-tiptap-')
+                ? substr($className, strlen('livewire-tiptap-'))
+                : $className;
+
+            $out[$key] = $useDefaults
+                ? (is_string($override) && $override !== '' ? $override : $className)
+                : $className;
+        }
+
+        if ($out === []) {
+            return [
+                'wrapper' => 'livewire-tiptap-wrapper',
+                'editor' => 'livewire-tiptap-editor',
+                'toolbar-dropdown' => 'livewire-tiptap-toolbar-dropdown',
+            ];
+        }
+
+        return $out;
     }
 }

@@ -19,19 +19,19 @@ return [
      * Override any of these class strings if you want to prefer your own. But you are already able to style everything through the livewire-tiptat-editor.css file which can be published.
      */
     'classes' => [
-        'livewire-tiptap-wrapper',
-        'livewire-tiptap-editor',
-        'livewire-tiptap-toolbar',
-        'livewire-tiptap-toolbar-border',
-        'livewire-tiptap-toolbar-spacer',
-        'livewire-tiptap-toolbar-button',
-        'livewire-tiptap-toolbar-button-icon',
-        'livewire-tiptap-toolbar-button-active',
-        'livewire-tiptap-toolbar-dropdown',
-        'livewire-tiptap-toolbar-dropdown-menu',
-        'livewire-tiptap-toolbar-dropdown-button',
-        'livewire-tiptap-toolbar-dropdown-button-icon',
-        'livewire-tiptap-toolbar-dropdown-button-active'
+        'livewire-tiptap-wrapper' => 'livewire-tiptap-wrapper',
+        'livewire-tiptap-editor' => 'livewire-tiptap-editor',
+        'livewire-tiptap-toolbar' => 'livewire-tiptap-toolbar',
+        'livewire-tiptap-toolbar-border' => 'livewire-tiptap-toolbar-border',
+        'livewire-tiptap-toolbar-spacer' => 'livewire-tiptap-toolbar-spacer',
+        'livewire-tiptap-toolbar-button' => 'livewire-tiptap-toolbar-button',
+        'livewire-tiptap-toolbar-button-icon' => 'livewire-tiptap-toolbar-button-icon',
+        'livewire-tiptap-toolbar-button-active' => 'livewire-tiptap-toolbar-button-active',
+        'livewire-tiptap-toolbar-dropdown' => 'livewire-tiptap-toolbar-dropdown',
+        'livewire-tiptap-toolbar-dropdown-menu' => 'livewire-tiptap-toolbar-dropdown-menu',
+        'livewire-tiptap-toolbar-dropdown-button' => 'livewire-tiptap-toolbar-dropdown-button',
+        'livewire-tiptap-toolbar-dropdown-button-icon' => 'livewire-tiptap-toolbar-dropdown-button-icon',
+        'livewire-tiptap-toolbar-dropdown-button-active' => 'livewire-tiptap-toolbar-dropdown-button-active',
     ],
 
     /**
@@ -128,7 +128,7 @@ return [
         ],
         'rightAlign' => [
             'icon' => 'tabler-align-right',
-        ]
+        ],
     ],
 
     /**

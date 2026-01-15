@@ -1,28 +1,22 @@
-@props(['label' => null, 'placeholder' => null])
-
 @php
-    $wireModel = $attributes->wire('model')->value();
-    $mods = $attributes->wire('model')->modifiers()->toArray();
+    /** @var array<int, array<string, mixed>> $toolbarButtons */
+    $toolbarButtons = $toolbarButtons ?? [];
+    $extensionsJsLiteral = $extensionsJsLiteral ?? '';
+    $label = $label ?? null;
+    $placeholder = $placeholder ?? null;
 
-    $entangle = in_array('live', $mods, true)
-        ? '$wire.entangle("' . $wireModel . '").live'
-        : '$wire.entangle("' . $wireModel . '")';
-
-    $id = str($wireModel)->slug()->toString();
+    $id = 'livewire-tiptap-' . $this->getId();
 @endphp
 
 <div>
     @if ($label)
-        <label class="livewire-tiptap-label" :for="$id">{{ $label }}</label>
+        <label class="livewire-tiptap-label" for="{{ $id }}">{{ $label }}</label>
     @endif
 
     <div
-        x-data="livewireTiptap({{ $entangle }}, $wire, '{{ $extensionsJsLiteral }}')"
+        x-data="livewireTiptap($wire.entangle('value').live, $wire, '{{ $extensionsJsLiteral }}')"
         wire:ignore
-        @class([
-            'livewire-tiptap-wrapper',
-            $attributes->get('class'),
-        ])
+        class="livewire-tiptap-wrapper"
     >
         <div class="livewire-tiptap-toolbar">
             @foreach ($toolbarButtons as $button)
@@ -31,14 +25,16 @@
                 @elseif ($button['type'] === 'spacer')
                     <div class="livewire-tiptap-toolbar-spacer"></div>
                 @elseif ($button['type'] === 'dropdown')
-                    <x-livewire-tiptap::dropdown :$button/>
+                    <x-livewire-tiptap::dropdown :button="$button"/>
                 @else
-                    <x-livewire-tiptap::button :$button/>
+                    <x-livewire-tiptap::button :button="$button"/>
                 @endif
             @endforeach
         </div>
+
         <div
             x-ref="livewireTiptapEditor"
+            id="{{ $id }}"
             class="livewire-tiptap-editor"
             @if ($placeholder)
                 data-placeholder="{{ $placeholder }}"

@@ -22,6 +22,7 @@ abstract class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
+            \Livewire\LivewireServiceProvider::class,
             LivewireTiptapServiceProvider::class,
         ];
     }
