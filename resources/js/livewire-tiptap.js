@@ -17,7 +17,7 @@ import { Placeholder } from '@tiptap/extensions'
 // import BubbleMenu from '@tiptap/extension-bubble-menu'
 
 document.addEventListener('alpine:init', () => {
-    Alpine.data('livewireTiptap', (content, livewireComponent, b64) => {
+    Alpine.data('livewireTiptap', (content, b64) => {
         let editor
 
         return {
