@@ -68,6 +68,7 @@ return [
         ],
         'bold' => [
             'icon' => 'tabler-bold',
+            'tooltip' => 'Strong emphasis',
         ],
         'italic' => [
             'icon' => 'tabler-italic',
@@ -152,9 +153,9 @@ return [
             'shouldAutoLink' => "(url) => url.startsWith('https://')",
             'validate' => null,
         ],
-        // 'emoji' => [
-        //     'enableEmoticons' => true,
-        // ],
+        'emoji' => [
+            'enableEmoticons' => true,
+        ],
         'textAlign' => [
             'types' => ['heading', 'paragraph'],
         ],

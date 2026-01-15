@@ -209,7 +209,8 @@ composer qa
 * [ ] Additional Tiptap extensions (blockquote, image, tables, etc.)
 * [ ] Image uploads & drag-drop support
 * [ ] Autosave & Ctrl+S handling
-* [ ] Bubble menus & tooltips
+* [ ] Bubble menus
+* [ ] Button tooltips
 * [ ] Sticky toolbar (optional)
 * [ ] Add align button
 * [ ] Add YouTube button

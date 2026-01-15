@@ -22,7 +22,7 @@ class Editor extends Component
         $this->toolbarButtons = $this->parseToolbarButtons($rawToolbar);
 
         $this->extensionsConfig = $this->getExtensionsConfig($extensions);
-        $this->extensionsJsLiteral = base64_encode(json_encode($this->toJsObjectLiteral($this->extensionsConfig)));
+        $this->extensionsJsLiteral = base64_encode($this->toJsObjectLiteral($this->extensionsConfig));
 
         $this->classes = array_flip(config('livewire-tiptap.classes'));
     }
@@ -35,7 +35,7 @@ class Editor extends Component
 
         return view($view, [
             'toolbarButtons' => $this->toolbarButtons,
-            'extensionsConfig' => $this->extensionsConfig,
+            // 'extensionsConfig' => $this->extensionsConfig,
             'extensionsJsLiteral' => $this->extensionsJsLiteral,
             'classes' => $this->classes,
         ]);

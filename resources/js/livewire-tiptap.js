@@ -27,7 +27,10 @@ document.addEventListener('alpine:init', () => {
 
             init() {
                 const _this = this
-                const extensionConfig = JSON.parse(atob(b64));
+                const decoded = atob(b64);
+                const extensionConfig = Function('return (' + decoded + ')')();
+
+                console.debug('livewire-tiptap config', extensionConfig, extensionConfig.link, extensionConfig.placeholder);
 
                 editor = new Editor({
                     element: this.$refs.livewireTiptapEditor,
