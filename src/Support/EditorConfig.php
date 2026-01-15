@@ -23,7 +23,7 @@ final class EditorConfig
     public array $classes;
 
     /**
-     * @param array<string, mixed> $extensions
+     * @param  array<string, mixed>  $extensions
      */
     public function __construct(?string $toolbar = null, array $extensions = [])
     {
@@ -44,7 +44,7 @@ final class EditorConfig
     }
 
     /**
-     * @param array<string, mixed>|null $override
+     * @param  array<string, mixed>|null  $override
      * @return array<string, mixed>
      */
     public function getExtensionsConfig(?array $override): array
