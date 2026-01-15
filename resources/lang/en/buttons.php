@@ -31,5 +31,5 @@ return [
     'alignLeft' => 'Align left',
     'alignCenter' => 'Align center',
     'alignRight' => 'Align right',
-    'customAlignLabelCenter' => 'Move me to the center'
+    'customAlignLabelCenter' => 'Move me to the center',
 ];

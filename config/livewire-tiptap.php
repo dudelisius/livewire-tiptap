@@ -31,7 +31,7 @@ return [
         'livewire-tiptap-toolbar-dropdown-menu',
         'livewire-tiptap-toolbar-dropdown-button',
         'livewire-tiptap-toolbar-dropdown-button-icon',
-        'livewire-tiptap-toolbar-dropdown-button-active'
+        'livewire-tiptap-toolbar-dropdown-button-active',
     ],
 
     /**
@@ -128,7 +128,7 @@ return [
         ],
         'rightAlign' => [
             'icon' => 'tabler-align-right',
-        ]
+        ],
     ],
 
     /**
