@@ -14,7 +14,7 @@
     @endif
 
     <div
-        x-data="livewireTiptap($wire.entangle('value'), '{{ $extensionsJsLiteral }}')"
+        x-data="livewireTiptap($wire.entangle('value').live, '{{ $extensionsJsLiteral }}')"
         wire:ignore
         class="livewire-tiptap-wrapper"
     >

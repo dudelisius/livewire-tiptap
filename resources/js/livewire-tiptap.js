@@ -24,6 +24,8 @@ document.addEventListener('alpine:init', () => {
             content: content,
             editor: editor,
             updatedAt: Date.now(),
+            _updatingFromEditor: false,
+            _updatingFromModel: false,
 
             init() {
                 const _this = this
@@ -50,8 +52,14 @@ document.addEventListener('alpine:init', () => {
                         _this.updatedAt = Date.now()
                     },
                     onUpdate({ editor }) {
+                        _this._updatingFromEditor = true
+
                         _this.content = editor.getHTML()
                         _this.updatedAt = Date.now()
+
+                        queueMicrotask(() => {
+                            _this._updatingFromEditor = false
+                        })
                     },
                     onSelectionUpdate({ editor }) {
                         _this.updatedAt = Date.now()
@@ -61,6 +69,26 @@ document.addEventListener('alpine:init', () => {
                             class: 'focus:outline-none',
                         },
                     }
+                })
+
+                // Keep editor in sync when the Livewire model changes externally
+                // (e.g. another editor on the page updates the same model).
+                this.$watch('content', (value) => {
+                    if (!editor) return
+                    if (this._updatingFromEditor) return
+
+                    const next = value ?? ''
+                    const current = editor.getHTML()
+
+                    if (next === current) return
+
+                    this._updatingFromModel = true
+                    editor.commands.setContent(next, false)
+                    this.updatedAt = Date.now()
+
+                    queueMicrotask(() => {
+                        this._updatingFromModel = false
+                    })
                 })
             },
             isLoaded() {
