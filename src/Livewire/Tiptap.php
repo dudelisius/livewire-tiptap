@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Dudelisius\LivewireTiptap\Livewire;
 
-use Livewire\Component;
-use Illuminate\View\View;
-use Livewire\Attributes\On;
-use Livewire\Attributes\Modelable;
 use Dudelisius\LivewireTiptap\Support\EditorConfig;
+use Illuminate\View\View;
+use Livewire\Attributes\Modelable;
+use Livewire\Component;
 
 class Tiptap extends Component
 {
