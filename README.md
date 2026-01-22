@@ -279,12 +279,16 @@ composer qa
 * [ ] Add option to disable texts in dropdowns
 * [ ] Improve readme on how to set the language
 * [ ] Add an option for setting placeholders
+* [ ] Add an option for enabling or disabling the focus within
 * [x] Add option to override the editor class from calling the editor
 * [ ] Auto show scroll arrows on narrow screens
 * [x] Fix css compiling and make sure it does not conflict with existing tailwind in projects
 * [x] Remove style blade directie and import via css file
-* [ ] Improve package setup and codebase
+* [~] Improve package setup and codebase
+* [ ] Add error styling to the wrapper
+* [x] Add label item to component
 * [ ] Flux styling as base
 * [ ] Make the view files publishable
 * [ ] Improved documentation & examples
+* [ ] Make accessible
 * [ ] First stable (1.0) release

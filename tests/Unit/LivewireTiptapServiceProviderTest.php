@@ -11,7 +11,7 @@ it('registers @livewireTiptapScripts directive', function () {
 
     $rendered = $directives['livewireTiptapScripts']();
     expect($rendered)->toContain('<script src="');
-    expect($rendered)->toContain("asset('vendor/livewire-tiptap/js/livewire-tiptap.js')");
+    expect($rendered)->toContain("asset('vendor/livewire-tiptap/livewire-tiptap.js')");
 });
 
 it('registers the <livewire:tiptap /> component alias', function () {

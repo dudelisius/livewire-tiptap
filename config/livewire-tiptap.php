@@ -14,6 +14,14 @@ return [
 
     /**
      * --------------------------------------------------------------------------
+     * Focus within
+     * --------------------------------------------------------------------------
+     * Define if you want a focus state to the editor wrapper
+     */
+    'focus_within' => false,
+
+    /**
+     * --------------------------------------------------------------------------
      * Component CSS Classes
      * --------------------------------------------------------------------------
      * Override any of these class strings if you want to prefer your own. But you are already able to style everything through the livewire-tiptat-editor.css file which can be published.
@@ -21,6 +29,7 @@ return [
     'classes' => [
         'livewire-tiptap-wrapper' => 'livewire-tiptap-wrapper',
         'livewire-tiptap-editor' => 'livewire-tiptap-editor',
+        'livewire-tiptap-editor-styles' => 'livewire-tiptap-editor-styles',
         'livewire-tiptap-toolbar' => 'livewire-tiptap-toolbar',
         'livewire-tiptap-toolbar-border' => 'livewire-tiptap-toolbar-border',
         'livewire-tiptap-toolbar-spacer' => 'livewire-tiptap-toolbar-spacer',

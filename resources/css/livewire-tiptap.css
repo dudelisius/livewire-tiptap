@@ -8,7 +8,7 @@
     --color-accent-foreground: var(--accent-foreground);
 }
 
-.livewire-tiptap-editor {
+.livewire-tiptap-editor-styles {
     @apply space-y-4;
 
     h1 {
@@ -81,49 +81,65 @@
         border-color: var(--border-color);
     }
 
-    b, strong {
+    b,
+    strong {
         @apply font-medium;
     }
 }
 
-label.livewire-tiptap-label {
-    @apply items-center text-sm font-medium text-zinc-800 dark:text-white flex mb-2;
-}
+.livewire-tiptap-component {
+    label.livewire-tiptap-label {
+        @apply items-center text-sm font-medium text-zinc-800 dark:text-white flex mb-2;
+    }
 
-.livewire-tiptap-wrapper {
-    @apply w-full border rounded-lg block disabled:shadow-none dark:shadow-none appearance-none text-base sm:text-sm leading-[1.375rem] bg-white dark:bg-white/10 dark:disabled:bg-white/[7%] text-zinc-700 disabled:text-zinc-500 placeholder-zinc-400 disabled:placeholder-zinc-400/70 dark:text-zinc-300 dark:disabled:text-zinc-400 dark:placeholder-zinc-400 dark:disabled:placeholder-zinc-500 shadow-xs border-zinc-200 border-b-zinc-300/80 disabled:border-b-zinc-200 dark:border-white/10 dark:disabled:border-white/5 data-invalid:shadow-none data-invalid:border-red-500 dark:data-invalid:border-red-500 disabled:data-invalid:border-red-500 dark:disabled:data-invalid:border-red-500 focus-within:outline-hidden focus-within:ring-2 focus-within:ring-accent focus-within:ring-offset-2 focus-within:ring-offset-accent-foreground;
+    .livewire-tiptap-wrapper {
+        @apply w-full border rounded-lg block disabled:shadow-none dark:shadow-none appearance-none text-base sm:text-sm leading-[1.375rem] bg-white dark:bg-white/10 dark:disabled:bg-white/[7%] text-zinc-700 disabled:text-zinc-500 placeholder-zinc-400 disabled:placeholder-zinc-400/70 dark:text-zinc-300 dark:disabled:text-zinc-400 dark:placeholder-zinc-400 dark:disabled:placeholder-zinc-500 shadow-xs border-zinc-200 border-b-zinc-300/80 disabled:border-b-zinc-200 dark:border-white/10 dark:disabled:border-white/5 data-invalid:shadow-none data-invalid:border-red-500 dark:data-invalid:border-red-500 disabled:data-invalid:border-red-500 dark:disabled:data-invalid:border-red-500;
 
-    .livewire-tiptap-toolbar {
-        @apply flex flex-wrap items-center gap-1 p-2 overflow-x-auto bg-zinc-50 dark:bg-white/[6%] dark:border-white/5 border-b border-zinc-200 dark:border-white/10 rounded-t-[calc(0.5rem-1px)];
+        &.with-focus {
+            @apply focus-within:outline-hidden focus-within:ring-2 focus-within:ring-accent focus-within:ring-offset-2 focus-within:ring-offset-accent-foreground;
+        }
 
-        .livewire-tiptap-toolbar-button {
-            @apply p-0.5 flex items-center justify-center text-sm font-medium rounded-md touch-manipulation text-zinc-400 data-open:text-zinc-800 hover:text-zinc-800 focus:text-zinc-800 data-match:text-zinc-800 disabled:opacity-75 dark:disabled:opacity-75 disabled:cursor-default disabled:pointer-events-none dark:text-zinc-400 dark:data-open:text-white dark:focus:text-white dark:data-match:text-white hover:bg-zinc-200 dark:hover:bg-white/10 dark:hover:text-white;
+        .livewire-tiptap-toolbar {
+            @apply flex flex-wrap items-center gap-1 p-2 overflow-x-auto bg-zinc-50 dark:bg-white/[6%] dark:border-white/5 border-b border-zinc-200 dark:border-white/10 rounded-t-[calc(0.5rem-1px)];
 
-            svg {
-                @apply size-5;
+            .livewire-tiptap-toolbar-button {
+                @apply p-0.5 flex items-center justify-center text-sm font-medium rounded-md touch-manipulation text-zinc-400 data-open:text-zinc-800 hover:text-zinc-800 focus:text-zinc-800 data-match:text-zinc-800 disabled:opacity-75 dark:disabled:opacity-75 disabled:cursor-default disabled:pointer-events-none dark:text-zinc-400 dark:data-open:text-white dark:focus:text-white dark:data-match:text-white hover:bg-zinc-200 dark:hover:bg-white/10 dark:hover:text-white;
+
+                svg {
+                    @apply size-5;
+                }
+            }
+
+            .livewire-tiptap-toolbar-button-active {
+                @apply text-zinc-800 bg-zinc-50;
+            }
+
+            .tooltip {
+                @apply relative py-2 px-2.5 rounded-md text-xs text-white font-medium bg-zinc-800 dark:bg-zinc-700 dark:border dark:border-white/10 p-0 overflow-visible;
             }
         }
 
-        .livewire-tiptap-toolbar-button-active {
-            @apply text-zinc-800 bg-zinc-50;
-        }
+        .livewire-tiptap-editor {
+            div {
+                @apply py-3 leading-[1.375rem] ps-3 pe-3 overflow-y-auto min-h-[200px] max-h-[500px];
+            }
 
-        .tooltip {
-            @apply relative py-2 px-2.5 rounded-md text-xs text-white font-medium bg-zinc-800 dark:bg-zinc-700 dark:border dark:border-white/10 p-0 overflow-visible;
+            p.is-editor-empty:first-child::before {
+                content: attr(data-placeholder);
+                float: left;
+                height: 0;
+                pointer-events: none;
+                @apply text-zinc-400 disabled:text-zinc-400/70 dark:text-zinc-400 dark:disabled:text-zinc-500;
+            }
         }
     }
 
-    .livewire-tiptap-editor {
-        @apply py-2 leading-[1.375rem] ps-3 pe-3;
+    .livewire-tiptap-error-message {
+        @apply mt-3 text-sm font-medium text-red-500 dark:text-red-400;
+    }
 
-        p.is-editor-empty:first-child::before {
-            color: #adb5bd;
-            content: attr(data-placeholder);
-            float: left;
-            height: 0;
-            pointer-events: none;
-            @apply text-zinc-400 disabled:text-zinc-400/70 dark:text-zinc-400 dark:disabled:text-zinc-500;
-        }
+    &[data-invalid] .livewire-tiptap-wrapper {
+        @apply shadow-none border-red-500 dark:border-red-500 disabled:border-red-500 dark:disabled:border-red-500;
     }
 }
 

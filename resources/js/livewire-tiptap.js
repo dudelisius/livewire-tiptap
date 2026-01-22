@@ -16,7 +16,17 @@ import { Placeholder } from '@tiptap/extensions'
 // import TableRow from '@tiptap/extension-table-row'
 // import BubbleMenu from '@tiptap/extension-bubble-menu'
 
-document.addEventListener('alpine:init', () => {
+function safeParseJsObjectLiteral(source) {
+    try {
+        // eslint-disable-next-line no-new-func
+        return Function(`"use strict"; return (${source});`)()
+    } catch (e) {
+        console.error('[livewire-tiptap] Failed to parse extension config.', e)
+        return {}
+    }
+}
+
+function registerLivewireTiptap(Alpine) {
     Alpine.data('livewireTiptap', (content, b64) => {
         let editor
 
@@ -28,41 +38,45 @@ document.addEventListener('alpine:init', () => {
             _updatingFromModel: false,
 
             init() {
-                const _this = this
-                const decoded = atob(b64);
-                const extensionConfig = Function('return (' + decoded + ')')();
-
-                console.debug('livewire-tiptap config', extensionConfig, extensionConfig.link, extensionConfig.placeholder);
+                const decoded = atob(b64)
+                const extensionConfig = safeParseJsObjectLiteral(decoded)
 
                 editor = new Editor({
                     element: this.$refs.livewireTiptapEditor,
-                    content: this.content,
+                    content: this.content ?? '',
                     extensions: [
                         StarterKit,
                         Subscript,
                         Superscript,
                         Highlight,
                         Underline,
-                        Link.configure(extensionConfig.link),
-                        Emoji.configure(extensionConfig.emoji),
-                        TextAlign.configure(extensionConfig.textAlign),
-                        Placeholder.configure(extensionConfig.placeholder),
+                        Link.configure(extensionConfig.link ?? {}),
+                        Emoji.configure(extensionConfig.emoji ?? {}),
+                        TextAlign.configure(extensionConfig.textAlign ?? {}),
+                        Placeholder.configure({
+                            'placeholder': this.$refs.livewireTiptapEditor.getAttribute('data-placeholder'),
+                            ...extensionConfig.placeholder ?? {}
+                        }),
                     ],
-                    onCreate({ editor }) {
-                        _this.updatedAt = Date.now()
+                    onCreate: () => {
+                        this.updatedAt = Date.now()
                     },
-                    onUpdate({ editor }) {
-                        _this._updatingFromEditor = true
+                    onUpdate: ({ editor }) => {
+                        this._updatingFromEditor = true
 
-                        _this.content = editor.getHTML()
-                        _this.updatedAt = Date.now()
+                        const html = editor.getHTML()
+                        if (this.content !== html) {
+                            this.content = html
+                        }
+
+                        this.updatedAt = Date.now()
 
                         queueMicrotask(() => {
-                            _this._updatingFromEditor = false
+                            this._updatingFromEditor = false
                         })
                     },
-                    onSelectionUpdate({ editor }) {
-                        _this.updatedAt = Date.now()
+                    onSelectionUpdate: () => {
+                        this.updatedAt = Date.now()
                     },
                     editorProps: {
                         attributes: {
@@ -71,8 +85,6 @@ document.addEventListener('alpine:init', () => {
                     }
                 })
 
-                // Keep editor in sync when the Livewire model changes externally
-                // (e.g. another editor on the page updates the same model).
                 this.$watch('content', (value) => {
                     if (!editor) return
                     if (this._updatingFromEditor) return
@@ -169,4 +181,14 @@ document.addEventListener('alpine:init', () => {
             },
         }
     })
-})
+}
+
+function ensureRegistered() {
+    if (window.Alpine && !window.__livewireTiptapRegistered) {
+        window.__livewireTiptapRegistered = true
+        registerLivewireTiptap(window.Alpine)
+    }
+}
+
+ensureRegistered()
+document.addEventListener('alpine:init', ensureRegistered)

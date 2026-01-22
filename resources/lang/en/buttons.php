@@ -28,8 +28,4 @@ return [
     'unlink' => 'Remove link',
     'undo' => 'Undo',
     'redo' => 'Redo',
-    'alignLeft' => 'Align left',
-    'alignCenter' => 'Align center',
-    'alignRight' => 'Align right',
-    'customAlignLabelCenter' => 'Move me to the center',
 ];

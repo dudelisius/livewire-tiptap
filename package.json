@@ -21,11 +21,11 @@
         "tippy.js": "^6.3.7"
     },
     "scripts": {
-        "build:css": "mkdir -p resources/dist/css && tailwindcss -i resources/css/livewire-tiptap.css -o resources/dist/css/livewire-tiptap.css --minify",
-        "build:js": "mkdir -p resources/dist/js && esbuild resources/js/livewire-tiptap.js --bundle --minify --outfile=resources/dist/js/livewire-tiptap.js",
+        "build:css": "tailwindcss -i resources/css/livewire-tiptap.css -o dist/livewire-tiptap.css --minify",
+        "build:js": "esbuild resources/js/livewire-tiptap.js --bundle --minify --outfile=dist/livewire-tiptap.js",
         "build": "bun run build:css && bun run build:js",
         "sync:pegasus": "bun run build && php ../pegasus/artisan vendor:publish --tag=livewire-tiptap-assets --force && php ../pegasus/artisan optimize:clear",
-        "dev": "bun run sync:pegasus && chokidar \"resources/css/**/*\" \"resources/js/**/*\" \"resources/views/**/*\" \"src/**/*\" \"config/**/*\" -i \"resources/dist/**/*\" -i \"**/node_modules/**\" -i \"**/vendor/**\" -i \"**/.git/**\" -c \"bun run sync:pegasus\""
+        "dev": "bun run sync:pegasus && chokidar \"resources/css/**/*\" \"resources/js/**/*\" \"resources/views/**/*\" \"src/**/*\" \"config/**/*\" -i \"dist/**/*\" -i \"**/node_modules/**\" -i \"**/vendor/**\" -i \"**/.git/**\" -c \"bun run sync:pegasus\""
     },
     "devDependencies": {
         "chokidar-cli": "^3.0.0",

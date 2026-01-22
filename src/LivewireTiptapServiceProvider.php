@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Dudelisius\LivewireTiptap;
 
-use Illuminate\Support\Facades\Blade;
-use Livewire\Livewire;
 use Override;
+use Livewire\Livewire;
+use Illuminate\Support\Facades\Blade;
 use Spatie\LaravelPackageTools\Package;
+use Dudelisius\LivewireTiptap\Livewire\Tiptap;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 /** @psalm-suppress UnusedClass */
@@ -19,30 +20,35 @@ class LivewireTiptapServiceProvider extends PackageServiceProvider
         $package
             ->name('livewire-tiptap')
             ->hasConfigFile()
-            ->hasViews()
-            ->hasAssets();
+            ->hasViews();
     }
 
     #[Override]
     public function bootingPackage(): void
     {
         Blade::directive('livewireTiptapScripts', function () {
-            return "<?php echo '<script src=\"' . asset('vendor/livewire-tiptap/js/livewire-tiptap.js') . '\"></script>'; ?>";
+            return "<?php echo '<script src=\"' . asset('vendor/livewire-tiptap/livewire-tiptap.js') . '\"></script>'; ?>";
         });
 
-        // Livewire component usage: <livewire:tiptap />
-        // Defer registration until the app is booted so Livewire bindings exist.
+        Blade::component('livewire-tiptap::components.tiptap', 'livewire-tiptap');
+
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../dist' => public_path('vendor/livewire-tiptap'),
+            ], 'livewire-tiptap-assets');
+        }
+
         $this->app->booted(function (): void {
             if (! $this->app->bound('livewire.finder')) {
                 return;
             }
 
-            Livewire::component('tiptap', \Dudelisius\LivewireTiptap\Livewire\Tiptap::class);
+            Livewire::component('tiptap', Tiptap::class);
         });
 
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'livewire-tiptap');
-
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'livewire-tiptap');
+
         $this->publishes([__DIR__ . '/../resources/lang' => resource_path('lang/vendor/livewire-tiptap')], 'livewire-tiptap-translations');
     }
 }
