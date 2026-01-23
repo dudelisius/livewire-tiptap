@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Dudelisius\LivewireTiptap\Support\EditorConfig;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Lang;
 
 beforeEach(function () {
     Config::set('livewire-tiptap.toolbar', 'h-1 h-2 [bold italic underline] | link unlink ~ undo redo');
@@ -53,7 +54,7 @@ it('toJsObjectLiteral handles values correctly', function () {
 
 it('parseToolbarButtons builds mixed buttons and dropdowns', function () {
     $editor = new EditorConfig;
-    $buttons = $editor->toolbarButtons;
+    $buttons = $editor->buttons;
 
     // first two should be heading buttons
     expect($buttons[0]['type'])->toBe('button');
@@ -76,7 +77,7 @@ it('parseToolbarButtons builds mixed buttons and dropdowns', function () {
 it('mapTokenToButton respects token, action, icon-component, active, options', function () {
     Config::set('livewire-tiptap.buttons.h-1.icon', 'custom-icon');
 
-    $btn = (new EditorConfig('h-1'))->toolbarButtons[0];
+    $btn = (new EditorConfig('h-1'))->buttons[0];
 
     expect($btn['token'])->toBe('h-1');
     expect($btn['action'])->toBe('toggleH');
@@ -85,21 +86,56 @@ it('mapTokenToButton respects token, action, icon-component, active, options', f
     expect($btn['options'])->toEqual(['level' => 1]);
 });
 
-it('compileClasses populates classes array with property keys', function () {
-    $editor = new EditorConfig;
-    $cls = $editor->classes;
+it('disables tooltips when global config is false', function () {
+    Config::set('livewire-tiptap.tooltips', false);
 
-    expect($cls['wrapper'])->toBe('wrap');
-    expect($cls['editor'])->toBe('edit');
-    expect($cls['toolbar-dropdown-button-active'])->toBe('dd-btn-act');
+    $btn = (new EditorConfig('bold'))->buttons[0];
+
+    expect($btn['tooltip'])->toBeFalse();
 });
 
-it('builds toolbarButtons, extensionsJsLiteral, and classes', function () {
-    $editor = new EditorConfig;
+it('disables tooltip when button config is explicitly false', function () {
+    Config::set('livewire-tiptap.tooltips', true);
+    Config::set('livewire-tiptap.buttons.bold.tooltip', false);
 
-    expect($editor->toolbarButtons)->toBeArray();
-    expect($editor->extensionsJsLiteral)->toBeString();
-    expect($editor->classes)->toBeArray();
+    $btn = (new EditorConfig('bold'))->buttons[0];
+
+    expect($btn['tooltip'])->toBeFalse();
+});
+
+it('keeps tooltip translation array with cmd and ctrl', function () {
+    Config::set('livewire-tiptap.tooltips', true);
+    Config::set('livewire-tiptap.buttons.bold.tooltip', null);
+
+    $btn = (new EditorConfig('bold'))->buttons[0];
+
+    expect($btn['tooltip'])->toBeArray();
+    expect($btn['tooltip'])->toHaveKeys(['cmd', 'ctrl']);
+});
+
+it('converts tooltip translation string into cmd/ctrl array', function () {
+    Config::set('livewire-tiptap.tooltips', true);
+
+    Lang::addLines([
+        'buttons.test.tooltip' => 'Hello',
+        'buttons.test.label' => 'Test',
+    ], 'en', 'livewire-tiptap');
+
+    $btn = (new EditorConfig('test'))->buttons[0];
+
+    expect($btn['tooltip'])->toEqual(['cmd' => 'Hello', 'ctrl' => 'Hello']);
+});
+
+it('falls back to label when tooltip translation is missing', function () {
+    Config::set('livewire-tiptap.tooltips', true);
+
+    Lang::addLines([
+        'buttons.nokey.label' => 'My Label',
+    ], 'en', 'livewire-tiptap');
+
+    $btn = (new EditorConfig('nokey'))->buttons[0];
+
+    expect($btn['tooltip'])->toEqual(['cmd' => 'My Label', 'ctrl' => 'My Label']);
 });
 
 dataset('tokenActions', [
@@ -114,7 +150,7 @@ dataset('tokenActions', [
 
 it('maps tokens to the correct action', function (string $token, string $expectedAction) {
     $editor = new EditorConfig($token);
-    $btn = $editor->toolbarButtons[0];
+    $btn = $editor->buttons[0];
 
     expect($btn['action'])->toBe($expectedAction);
 })->with('tokenActions');
@@ -122,7 +158,7 @@ it('maps tokens to the correct action', function (string $token, string $expecte
 it('parseToolbarButtons handles a standalone dropdown group', function () {
     Config::set('livewire-tiptap.toolbar', '[a b c]');
     $editor = new EditorConfig;
-    $buttons = $editor->toolbarButtons;
+    $buttons = $editor->buttons;
 
     expect(count($buttons))->toBe(1);
     expect($buttons[0]['type'])->toBe('dropdown');
@@ -132,12 +168,10 @@ it('parseToolbarButtons handles a standalone dropdown group', function () {
     expect($buttons[0]['active'])->toBe('a');
 });
 
-it('compileClasses returns fallback classes when defaults disabled', function () {
-    Config::set('livewire-tiptap.use_default_classes', false);
-    Config::set('livewire-tiptap.classes', []);
+it('builds buttons, extensionsJsLiteral, and classes', function () {
     $editor = new EditorConfig;
-    $classes = $editor->classes;
 
-    expect($classes['wrapper'])->toBe('livewire-tiptap-wrapper');
-    expect($classes['toolbar-dropdown'])->toBe('livewire-tiptap-toolbar-dropdown');
+    expect($editor->buttons)->toBeArray();
+    expect($editor->extensionsJsLiteral)->toBeString();
+    expect($editor->classes)->toBeArray();
 });

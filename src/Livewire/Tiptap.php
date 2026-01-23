@@ -16,7 +16,6 @@ class Tiptap extends Component
 
     public ?string $label = null;
     public ?string $placeholder = null;
-    public ?string $error = null;
     public ?string $toolbar = null;
 
     /** @var array<string, mixed> */
@@ -27,7 +26,7 @@ class Tiptap extends Component
         $editor = new EditorConfig(toolbar: $this->toolbar, extensions: $this->extensions);
 
         return view('livewire-tiptap::livewire.editor', [
-            'toolbarButtons' => $editor->toolbarButtons,
+            'buttons' => $editor->buttons,
             'extensionsJsLiteral' => $editor->extensionsJsLiteral,
             'classes' => $editor->classes,
             'label' => $this->label,

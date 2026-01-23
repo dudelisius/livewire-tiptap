@@ -12,19 +12,18 @@
         x-bind:class="{ 'livewire-tiptap-toolbar-button-active' : isActive('{{ $button['active'] }}', @js($button['options']), updatedAt) }"
     @endif
     @if ($button['tooltip'])
-        {{-- x-tooltip="{{ $button['tooltip']['cmd'] }}" --}}
-        x-tooltip="Test"
+        x-tooltip="{{ str(request()->header('User-Agent'))->contains('Mac') ? $button['tooltip']['cmd'] : $button['tooltip']['ctrl'] }}"
     @endif
     class="livewire-tiptap-toolbar-button"
 >
     @if ($slot->isNotEmpty())
         {{ $slot }}
     @else
-        @if (isset($button['icon-component']))
+        @if ($button['icon-component'])
             <x-dynamic-component :component="$button['icon-component']" class="shrink-0" />
         @endif
 
-        @if (isset($button['label']))
+        @if ($button['label'])
             {{ $button['label'] }}
         @endif
     @endif

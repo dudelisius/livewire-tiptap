@@ -1,4 +1,4 @@
-
+import tippy from 'tippy.js';
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Subscript from '@tiptap/extension-subscript';
@@ -202,7 +202,7 @@ function livewireEditorTooltip() {
     })
 
     Alpine.directive('tooltip', (el, { expression }) => {
-        tippy(el, { content: expression })
+        tippy(el, { content: expression, theme: 'livewire-tiptap-toolbar-button-tooltip' })
     })
 }
 

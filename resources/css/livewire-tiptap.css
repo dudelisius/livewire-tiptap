@@ -118,16 +118,12 @@
                 @apply text-zinc-800 bg-zinc-50;
             }
 
-            .livewire-tiptap-toolbar-border {
+            .livewire-tiptap-toolbar-separator {
                 @apply h-4 border-0 bg-zinc-200 dark:bg-white/20 w-px;
             }
 
             .livewire-tiptap-toolbar-spacer {
                 @apply flex-1;
-            }
-
-            .tooltip {
-                @apply relative py-2 px-2.5 rounded-md text-xs text-white font-medium bg-zinc-800 dark:bg-zinc-700 dark:border dark:border-white/10 p-0 overflow-visible;
             }
         }
 
@@ -153,6 +149,10 @@
     &[data-invalid] .livewire-tiptap-wrapper {
         @apply shadow-none border-red-500 dark:border-red-500 disabled:border-red-500 dark:disabled:border-red-500;
     }
+}
+
+.tippy-box[data-theme~='livewire-tiptap-toolbar-button-tooltip'] {
+    @apply relative py-2 px-2.5 rounded-md text-xs text-white font-medium bg-zinc-800 dark:bg-zinc-700 dark:border dark:border-white/10 p-0 overflow-visible;
 }
 
 @utility no-scrollbar {

@@ -1,8 +1,6 @@
 @props([
     'id',
-    'label' => null,
     'placeholder' => null,
-    'error' => null,
 ])
 
 <div
@@ -13,15 +11,15 @@
     ])
 >
     <div class="livewire-tiptap-toolbar">
-        @foreach ($toolbarButtons as $button)
+        @foreach ($buttons as $button)
             @if ($button['type'] === 'separator')
-                <div class="livewire-tiptap-toolbar-border"></div>
+                <div class="livewire-tiptap-toolbar-separator"></div>
             @elseif ($button['type'] === 'spacer')
                 <div class="livewire-tiptap-toolbar-spacer"></div>
             @elseif ($button['type'] === 'dropdown')
-                <x-livewire-tiptap::dropdown :button="$button"/>
+                {{-- <x-livewire-tiptap::dropdown :$button/> --}}
             @else
-                <x-livewire-tiptap::button :button="$button"/>
+                <x-livewire-tiptap::button :$button/>
             @endif
         @endforeach
     </div>

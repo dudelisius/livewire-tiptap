@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Dudelisius\LivewireTiptap\Support;
 
+use Illuminate\Support\Facades\Lang;
+
 final class EditorConfig
 {
     /** @var array<int, array<string, mixed>> */
-    public array $toolbarButtons;
+    public array $buttons;
 
     /** @var array<string, mixed> */
     public array $extensionsConfig;
@@ -17,13 +19,10 @@ final class EditorConfig
     /** @var array<string, string> */
     public array $classes;
 
-    /**
-     * @param  array<string, mixed>  $extensions
-     */
     public function __construct(?string $toolbar = null, array $extensions = [])
     {
         $rawToolbar = $this->getToolbarConfig($toolbar);
-        $this->toolbarButtons = $this->parseToolbarButtons($rawToolbar);
+        $this->buttons = $this->parseToolbarButtons($rawToolbar);
 
         $this->extensionsConfig = $this->getExtensionsConfig($extensions);
         $this->extensionsJsLiteral = base64_encode($this->toJsObjectLiteral($this->extensionsConfig));
@@ -38,16 +37,10 @@ final class EditorConfig
         return trim($override ?: $default);
     }
 
-    /**
-     * @param  array<string, mixed>|null  $override
-     * @return array<string, mixed>
-     */
     public function getExtensionsConfig(?array $override): array
     {
-        /** @var array<string, mixed> $defaults */
         $defaults = config('livewire-tiptap.extensions', []);
 
-        /** @var array<string, mixed> $merged */
         $merged = array_replace_recursive($defaults, $override ?? []);
 
         return $merged ?: $defaults;
@@ -80,7 +73,6 @@ final class EditorConfig
             : '[' . $inner . ']';
     }
 
-    /** @return array<int, array<string, mixed>> */
     public function parseToolbarButtons(string $raw): array
     {
         $groups = [];
@@ -114,7 +106,6 @@ final class EditorConfig
         }, $tokens);
     }
 
-    /** @return array<string, mixed> */
     public function mapTokenToButton(string $token): array
     {
         if ($token === '|') {
@@ -146,21 +137,78 @@ final class EditorConfig
             default => 'toggle' . ucfirst($name),
         };
 
-        $tooltipConfig = config('livewire-tiptap.buttons.' . $token . '.tooltip');
+        $labelText = $this->resolveLabel($token);
+        $tooltip = $this->resolveTooltip($token, $labelText);
 
         $button = [
             'type' => 'button',
             'token' => $token,
             'action' => $action,
-            'icon-component' => config('livewire-tiptap.buttons.' . $token . '.icon', 'tabler-' . $token),
             'active' => $name,
             'options' => $options,
-            'label' => __('livewire-tiptap::buttons.' . $token . '.label'),
-            'tooltip' => $tooltipConfig === false
-                ? false
-                : __('livewire-tiptap::buttons.' . $token . '.tooltip'),
+            'icon-component' => config('livewire-tiptap.icons')
+                ? config('livewire-tiptap.buttons.' . $token . '.icon', 'tabler-' . $token)
+                : false,
+            'label' => config('livewire-tiptap.labels')
+                ? $labelText
+                : false,
+            'tooltip' => $tooltip,
         ];
 
         return $button;
+    }
+
+    private function resolveLabel(string $token): string
+    {
+        $labelKey = 'livewire-tiptap::buttons.' . $token . '.label';
+
+        if (Lang::has($labelKey)) {
+            $label = __($labelKey);
+
+            return is_string($label) ? $label : $token;
+        }
+
+        $fallbackKey = 'livewire-tiptap::buttons.' . $token;
+
+        if (Lang::has($fallbackKey)) {
+            $label = __($fallbackKey);
+
+            return is_string($label) ? $label : $token;
+        }
+
+        return $token;
+    }
+
+    /** @return array{cmd:string,ctrl:string}|false */
+    private function resolveTooltip(string $token, string $label): array|false
+    {
+        if (! (bool) config('livewire-tiptap.tooltips', true)) {
+            return false;
+        }
+
+        if (config('livewire-tiptap.buttons.' . $token . '.tooltip') === false) {
+            return false;
+        }
+
+        $tooltipKey = 'livewire-tiptap::buttons.' . $token . '.tooltip';
+
+        if (Lang::has($tooltipKey)) {
+            $translation = __($tooltipKey);
+
+            if (is_array($translation)
+                && array_key_exists('cmd', $translation)
+                && array_key_exists('ctrl', $translation)
+                && is_string($translation['cmd'])
+                && is_string($translation['ctrl'])
+            ) {
+                return ['cmd' => $translation['cmd'], 'ctrl' => $translation['ctrl']];
+            }
+
+            if (is_string($translation)) {
+                return ['cmd' => $translation, 'ctrl' => $translation];
+            }
+        }
+
+        return ['cmd' => $label, 'ctrl' => $label];
     }
 }

@@ -263,32 +263,32 @@ composer qa
 
 ## 📈 Roadmap
 
-* [ ] Additional Tiptap extensions (blockquote, image, tables, etc.)
+* [~] Additional Tiptap extensions (blockquote, image, tables, etc.)
 * [ ] Image uploads & drag-drop support
 * [ ] Autosave & Ctrl+S handling
 * [ ] Bubble menus
-* [ ] Button tooltips
 * [ ] Sticky toolbar (optional)
-* [ ] Add align button
+* [~] Add align button
 * [ ] Add YouTube button
 * [ ] Add embed button
 * [ ] Add details/summary button
-* [ ] Add chevron to dropdowns
-* [ ] Add label option
-* [ ] Add options for custom labels from config
-* [ ] Add option to disable texts in dropdowns
 * [ ] Improve readme on how to set the language
-* [ ] Add an option for setting placeholders
-* [ ] Add an option for enabling or disabling the focus within
-* [x] Add option to override the editor class from calling the editor
 * [ ] Auto show scroll arrows on narrow screens
-* [x] Fix css compiling and make sure it does not conflict with existing tailwind in projects
-* [x] Remove style blade directie and import via css file
-* [~] Improve package setup and codebase
-* [ ] Add error styling to the wrapper
-* [x] Add label item to component
-* [ ] Flux styling as base
 * [ ] Make the view files publishable
 * [ ] Improved documentation & examples
-* [ ] Make accessible
+* [~] Add the option to add buttons by passing the into the editor
+* [~] Make accessible
 * [ ] First stable (1.0) release
+* [~] Improve package setup and codebase
+* [x] Button tooltips
+* [x] Add an option for setting placeholders
+* [x] Add an option for enabling or disabling the focus within
+* [x] Add option to override the editor class from calling the editor
+* [x] Add chevron to dropdowns
+* [x] Add label option
+* [x] Add options for custom labels from config
+* [x] Fix css compiling and make sure it does not conflict with existing tailwind in projects
+* [x] Remove style blade directie and import via css file
+* [x] Add error styling to the wrapper
+* [x] Add label item to component
+* [x] Flux styling as base
