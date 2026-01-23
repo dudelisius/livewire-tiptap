@@ -276,9 +276,10 @@ composer qa
 * [ ] Auto show scroll arrows on narrow screens
 * [ ] Make the view files publishable
 * [ ] Improved documentation & examples
+* [ ] First stable (1.0) release
+* [ ] Allow multiple editors on one page
 * [~] Add the option to add buttons by passing the into the editor
 * [~] Make accessible
-* [ ] First stable (1.0) release
 * [~] Improve package setup and codebase
 * [x] Button tooltips
 * [x] Add an option for setting placeholders

@@ -56,14 +56,8 @@
         x-cloak
         class="livewire-tiptap-toolbar-dropdown-menu"
     >
-        {{-- @foreach ($button['options'] as $button)
-            <x-livewire-tiptap::button
-                :$button
-                :$classes
-                :showLabel="$button['showLabel'] ?? false"
-                :toolbarButton="livewire-tiptap-toolbar-dropdown-button"
-                :toolbarButtonActive="livewire-tiptap-toolbar-dropdown-button-active"
-            />
-        @endforeach --}}
+        @foreach ($button['options'] as $button)
+            <x-livewire-tiptap::button :$button/>
+        @endforeach
     </div>
 </div>

@@ -25,7 +25,9 @@
         {{ $attributes->whereStartsWith('wire:model') }}
         :$id
         :$placeholder
-    />
+    >
+        {{ $slot }}
+    </livewire-tiptap>
 
     @if ($error)
         <div role="alert" aria-live="polite" aria-atomic="true" class="livewire-tiptap-error-message">{{ $error }}</div>

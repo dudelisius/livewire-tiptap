@@ -52,7 +52,6 @@ return [
             'ctrl' => 'Heading 6 ^⌥6',
         ],
     ],
-
     'blockquote' => [
         'label' => 'Blockquote',
         'tooltip' => [
@@ -60,8 +59,6 @@ return [
             'ctrl' => 'Blockquote ^⇧B',
         ],
     ],
-
-    // HorizontalRule heeft geen default shortcut; het is een input rule (--- of ___ ) aan begin van de regel.
     'horizontalRule' => [
         'label' => 'Horizontal rule',
         'tooltip' => [
@@ -76,7 +73,6 @@ return [
             'ctrl' => 'Horizontal rule: type --- (new line)',
         ],
     ],
-
     'bold' => [
         'label' => 'Bold',
         'tooltip' => [
@@ -98,8 +94,6 @@ return [
             'ctrl' => 'Underline ^U',
         ],
     ],
-
-    // FIX: Strikethrough is Shift+S (niet Shift+X)
     'strike' => [
         'label' => 'Strikethrough',
         'tooltip' => [
@@ -107,7 +101,6 @@ return [
             'ctrl' => 'Strikethrough ^⇧S',
         ],
     ],
-
     'highlight' => [
         'label' => 'Highlight',
         'tooltip' => [
@@ -115,7 +108,6 @@ return [
             'ctrl' => 'Highlight ^⇧H',
         ],
     ],
-
     'code' => [
         'label' => 'Code',
         'tooltip' => [
@@ -123,7 +115,6 @@ return [
             'ctrl' => 'Code ^E',
         ],
     ],
-
     'bulletList' => [
         'label' => 'Bullet list',
         'tooltip' => [
@@ -138,7 +129,6 @@ return [
             'ctrl' => 'Numbered list ^⇧7',
         ],
     ],
-
     'subscript' => [
         'label' => 'Subscript',
         'tooltip' => [
@@ -153,22 +143,12 @@ return [
             'ctrl' => 'Superscript ^.',
         ],
     ],
-
-    // Link: geen default shortcut in de Link extension.
-    // Als jij in je app wél Mod-K gebruikt om je link UI te openen, kun je dit laten staan,
-    // maar "Tiptap default" is: geen shortcut.
     'link' => [
         'label' => 'Insert link',
-        'tooltip' => [
-            'cmd' => 'Insert link (no default shortcut)',
-            'ctrl' => 'Insert link (no default shortcut)',
-        ],
     ],
     'unlink' => [
         'label' => 'Remove link',
     ],
-
-    // Hard break: Shift+Enter (en in veel setups ook Mod+Enter als “line break”)
     'hardBreak' => [
         'label' => 'Hard break',
         'tooltip' => [
@@ -176,7 +156,6 @@ return [
             'ctrl' => 'Hard break ⇧⏎',
         ],
     ],
-
     'leftAlign' => [
         'label' => 'Align left',
         'tooltip' => [
@@ -198,7 +177,6 @@ return [
             'ctrl' => 'Align right ^⇧R',
         ],
     ],
-
     'undo' => [
         'label' => 'Undo',
         'tooltip' => [

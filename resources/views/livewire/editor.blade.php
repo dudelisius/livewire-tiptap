@@ -17,11 +17,12 @@
             @elseif ($button['type'] === 'spacer')
                 <div class="livewire-tiptap-toolbar-spacer"></div>
             @elseif ($button['type'] === 'dropdown')
-                {{-- <x-livewire-tiptap::dropdown :$button/> --}}
+                <x-livewire-tiptap::dropdown :$button/>
             @else
                 <x-livewire-tiptap::button :$button/>
             @endif
         @endforeach
+        {{ $slot }}
     </div>
 
     <div
