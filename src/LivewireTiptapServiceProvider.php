@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Dudelisius\LivewireTiptap;
 
-use Override;
-use Livewire\Livewire;
-use Illuminate\Support\Facades\Blade;
-use Spatie\LaravelPackageTools\Package;
 use Dudelisius\LivewireTiptap\Livewire\Tiptap;
+use Illuminate\Support\Facades\Blade;
+use Livewire\Livewire;
+use Override;
+use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 /** @psalm-suppress UnusedClass */
