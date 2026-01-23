@@ -22,26 +22,11 @@ return [
 
     /**
      * --------------------------------------------------------------------------
-     * Component CSS Classes
+     * Tooltips
      * --------------------------------------------------------------------------
-     * Override any of these class strings if you want to prefer your own. But you are already able to style everything through the livewire-tiptat-editor.css file which can be published.
+     * Globally disable tooltips
      */
-    'classes' => [
-        'livewire-tiptap-wrapper' => 'livewire-tiptap-wrapper',
-        'livewire-tiptap-editor' => 'livewire-tiptap-editor',
-        'livewire-tiptap-editor-styles' => 'livewire-tiptap-editor-styles',
-        'livewire-tiptap-toolbar' => 'livewire-tiptap-toolbar',
-        'livewire-tiptap-toolbar-border' => 'livewire-tiptap-toolbar-border',
-        'livewire-tiptap-toolbar-spacer' => 'livewire-tiptap-toolbar-spacer',
-        'livewire-tiptap-toolbar-button' => 'livewire-tiptap-toolbar-button',
-        'livewire-tiptap-toolbar-button-icon' => 'livewire-tiptap-toolbar-button-icon',
-        'livewire-tiptap-toolbar-button-active' => 'livewire-tiptap-toolbar-button-active',
-        'livewire-tiptap-toolbar-dropdown' => 'livewire-tiptap-toolbar-dropdown',
-        'livewire-tiptap-toolbar-dropdown-menu' => 'livewire-tiptap-toolbar-dropdown-menu',
-        'livewire-tiptap-toolbar-dropdown-button' => 'livewire-tiptap-toolbar-dropdown-button',
-        'livewire-tiptap-toolbar-dropdown-button-icon' => 'livewire-tiptap-toolbar-dropdown-button-icon',
-        'livewire-tiptap-toolbar-dropdown-button-active' => 'livewire-tiptap-toolbar-dropdown-button-active',
-    ],
+    'tooltips' => true,
 
     /**
      * --------------------------------------------------------------------------
@@ -77,7 +62,9 @@ return [
         ],
         'bold' => [
             'icon' => 'tabler-bold',
-            'tooltip' => 'Strong emphasis',
+            // 'dropdown' => [ // This will disable the dropdown label and only show the icon
+            //     'label' => false
+            // ]
         ],
         'italic' => [
             'icon' => 'tabler-italic',
@@ -172,5 +159,28 @@ return [
             'showOnlyWhenEditable' => true,
             'showOnlyCurrent' => false,
         ],
+    ],
+
+    /**
+     * --------------------------------------------------------------------------
+     * Component CSS Classes
+     * --------------------------------------------------------------------------
+     * Override any of these class strings if you want to prefer your own. But you are already able to style everything through the livewire-tiptat-editor.css file which can be published.
+     */
+    'classes' => [
+        'livewire-tiptap-wrapper' => 'livewire-tiptap-wrapper',
+        'livewire-tiptap-editor' => 'livewire-tiptap-editor',
+        'livewire-tiptap-editor-styles' => 'livewire-tiptap-editor-styles',
+        'livewire-tiptap-toolbar' => 'livewire-tiptap-toolbar',
+        'livewire-tiptap-toolbar-border' => 'livewire-tiptap-toolbar-border',
+        'livewire-tiptap-toolbar-spacer' => 'livewire-tiptap-toolbar-spacer',
+        'livewire-tiptap-toolbar-button' => 'livewire-tiptap-toolbar-button',
+        'livewire-tiptap-toolbar-button-icon' => 'livewire-tiptap-toolbar-button-icon',
+        'livewire-tiptap-toolbar-button-active' => 'livewire-tiptap-toolbar-button-active',
+        'livewire-tiptap-toolbar-dropdown' => 'livewire-tiptap-toolbar-dropdown',
+        'livewire-tiptap-toolbar-dropdown-menu' => 'livewire-tiptap-toolbar-dropdown-menu',
+        'livewire-tiptap-toolbar-dropdown-button' => 'livewire-tiptap-toolbar-dropdown-button',
+        'livewire-tiptap-toolbar-dropdown-button-icon' => 'livewire-tiptap-toolbar-dropdown-button-icon',
+        'livewire-tiptap-toolbar-dropdown-button-active' => 'livewire-tiptap-toolbar-dropdown-button-active',
     ],
 ];

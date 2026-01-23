@@ -45,7 +45,7 @@
         @foreach ($button['options'] as $buttonIcon)
             <x-dynamic-component x-cloak="{{ (bool) !$loop->first }}" :component="$buttonIcon['icon-component']" x-show="selected === '{{ $buttonIcon['token'] }}'"/>
         @endforeach
-        <x-tabler-chevron-down class=""/>
+        <x-tabler-chevron-down class="livewire-tiptap-toolbar-dropdown-button-chevron"/>
     </x-livewire-tiptap::button>
 
     <div

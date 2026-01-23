@@ -4,11 +4,6 @@ declare(strict_types=1);
 
 namespace Dudelisius\LivewireTiptap\Support;
 
-/**
- * Pure config/toolbar computation for the TipTap editor.
- *
- * This is intentionally framework-light so it can be unit-tested easily.
- */
 final class EditorConfig
 {
     /** @var array<int, array<string, mixed>> */
@@ -33,7 +28,7 @@ final class EditorConfig
         $this->extensionsConfig = $this->getExtensionsConfig($extensions);
         $this->extensionsJsLiteral = base64_encode($this->toJsObjectLiteral($this->extensionsConfig));
 
-        $this->classes = $this->compileClasses();
+        $this->classes = config('livewire-tiptap.classes', []);
     }
 
     public function getToolbarConfig(?string $override): string
@@ -151,55 +146,21 @@ final class EditorConfig
             default => 'toggle' . ucfirst($name),
         };
 
-        return [
+        $tooltipConfig = config('livewire-tiptap.buttons.' . $token . '.tooltip');
+
+        $button = [
             'type' => 'button',
             'token' => $token,
             'action' => $action,
             'icon-component' => config('livewire-tiptap.buttons.' . $token . '.icon', 'tabler-' . $token),
             'active' => $name,
             'options' => $options,
-            'label' => 'livewire-tiptap::buttons.' . $token,
+            'label' => __('livewire-tiptap::buttons.' . $token . '.label'),
+            'tooltip' => $tooltipConfig === false
+                ? false
+                : __('livewire-tiptap::buttons.' . $token . '.tooltip'),
         ];
-    }
 
-    /** @return array<string, string> */
-    public function compileClasses(): array
-    {
-        $useDefaults = (bool) config('livewire-tiptap.use_default_classes', true);
-        $configured = config('livewire-tiptap.classes', []);
-
-        // Accept both formats:
-        // - associative: ['livewire-tiptap-wrapper' => 'wrap']
-        // - list: ['livewire-tiptap-wrapper', ...]
-        if (is_array($configured) && array_keys($configured) === range(0, count($configured) - 1)) {
-            $configured = array_fill_keys($configured, null);
-        }
-
-        if (! is_array($configured)) {
-            $configured = [];
-        }
-
-        $out = [];
-
-        foreach ($configured as $className => $override) {
-            $className = (string) $className;
-            $key = str_starts_with($className, 'livewire-tiptap-')
-                ? substr($className, strlen('livewire-tiptap-'))
-                : $className;
-
-            $out[$key] = $useDefaults
-                ? (is_string($override) && $override !== '' ? $override : $className)
-                : $className;
-        }
-
-        if ($out === []) {
-            return [
-                'wrapper' => 'livewire-tiptap-wrapper',
-                'editor' => 'livewire-tiptap-editor',
-                'toolbar-dropdown' => 'livewire-tiptap-toolbar-dropdown',
-            ];
-        }
-
-        return $out;
+        return $button;
     }
 }

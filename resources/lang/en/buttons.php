@@ -12,7 +12,13 @@ return [
     'heading-6' => 'Heading 6',
     'blockquote' => 'Blockquote',
     'horizontal-rule' => 'Horizontal rule',
-    'bold' => 'Bold',
+    'bold' => [
+        'label' => 'Bold',
+        'tooltip' => [
+            'cmd' => 'Bold ⌘B',
+            'ctrl' => 'Bold ^B',
+        ],
+    ],
     'italic' => 'Italic',
     'underline' => 'Underline',
     'strike' => 'Strikethrough',

@@ -100,7 +100,7 @@
         }
 
         .livewire-tiptap-toolbar {
-            @apply flex flex-wrap items-center gap-1 p-2 overflow-x-auto bg-zinc-50 dark:bg-white/[6%] dark:border-white/5 border-b border-zinc-200 dark:border-white/10 rounded-t-[calc(0.5rem-1px)];
+            @apply flex flex-wrap items-center gap-1.5 p-1.5 overflow-x-auto bg-zinc-50 dark:bg-white/[6%] dark:border-white/5 border-b border-zinc-200 dark:border-white/10 rounded-t-[calc(0.5rem-1px)];
 
             .livewire-tiptap-toolbar-button {
                 @apply p-0.5 flex items-center justify-center text-sm font-medium rounded-md touch-manipulation text-zinc-400 data-open:text-zinc-800 hover:text-zinc-800 focus:text-zinc-800 data-match:text-zinc-800 disabled:opacity-75 dark:disabled:opacity-75 disabled:cursor-default disabled:pointer-events-none dark:text-zinc-400 dark:data-open:text-white dark:focus:text-white dark:data-match:text-white hover:bg-zinc-200 dark:hover:bg-white/10 dark:hover:text-white;
@@ -108,10 +108,22 @@
                 svg {
                     @apply size-5;
                 }
+
+                .livewire-tiptap-toolbar-dropdown-button-chevron {
+                    @apply size-4;
+                }
             }
 
             .livewire-tiptap-toolbar-button-active {
                 @apply text-zinc-800 bg-zinc-50;
+            }
+
+            .livewire-tiptap-toolbar-border {
+                @apply h-4 border-0 bg-zinc-200 dark:bg-white/20 w-px;
+            }
+
+            .livewire-tiptap-toolbar-spacer {
+                @apply flex-1;
             }
 
             .tooltip {

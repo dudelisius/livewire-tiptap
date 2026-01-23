@@ -18,7 +18,6 @@ import { Placeholder } from '@tiptap/extensions'
 
 function safeParseJsObjectLiteral(source) {
     try {
-        // eslint-disable-next-line no-new-func
         return Function(`"use strict"; return (${source});`)()
     } catch (e) {
         console.error('[livewire-tiptap] Failed to parse extension config.', e)
@@ -190,5 +189,28 @@ function ensureRegistered() {
     }
 }
 
+function livewireEditorTooltip() {
+    Alpine.magic('tooltip', el => message => {
+        let instance = tippy(el, { content: message, trigger: 'manual' })
+
+        instance.show()
+
+        setTimeout(() => {
+            instance.hide()
+            setTimeout(() => instance.destroy(), 150)
+        }, 2000)
+    })
+
+    Alpine.directive('tooltip', (el, { expression }) => {
+        tippy(el, { content: expression })
+    })
+}
+
 ensureRegistered()
-document.addEventListener('alpine:init', ensureRegistered)
+
+function alpineInit() {
+    ensureRegistered()
+    livewireEditorTooltip();
+}
+
+document.addEventListener('alpine:init', alpineInit)
